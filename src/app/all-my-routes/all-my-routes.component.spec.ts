@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BackActiveMapComponent } from './back-active-map.component';
+import { AllRoutesComponent } from './all-my-routes.component';
 
-describe('BackActiveMapComponent', () => {
-  let component: BackActiveMapComponent;
-  let fixture: ComponentFixture<BackActiveMapComponent>;
+describe('AllRoutesComponent', () => {
+  let component: AllRoutesComponent;
+  let fixture: ComponentFixture<AllRoutesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BackActiveMapComponent ]
+      declarations: [ AllRoutesComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BackActiveMapComponent);
+    fixture = TestBed.createComponent(AllRoutesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

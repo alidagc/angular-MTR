@@ -1,0 +1,16 @@
+<h2> Log in </h2>
+
+<p *ngIf="loginErrorMessage" class="error">
+  {{ errorMessage }}
+</p>
+
+<form (ngSubmit)="doLogIn()">
+  <label for="login-email-input"> Email </label>
+  <input id="login-email-input" type="text" name="loginEmail" [(ngModel)]="loginEmail">
+<br>
+  <label for="login-password-input"> Password </label>
+  <input id="login-password-input" type="password" name="loginPassword" [(ngModel)]="loginPassword">
+<br>
+  <button> LOG IN </button>
+
+</form>

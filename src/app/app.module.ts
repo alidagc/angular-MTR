@@ -8,9 +8,9 @@ import { MyTravelRoutesServiceService } from './services/my-travel-routes-servic
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { AllRoutesComponent } from './all-routes/all-routes.component';
+import { AllRoutesComponent } from './all-my-routes/all-my-routes.component';
 import { SignupComponent } from './signup/signup.component';
-import { BackActiveMapComponent } from './back-active-map/back-active-map.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { BackActiveMapComponent } from './back-active-map/back-active-map.compon
     HomePageComponent,
     AllRoutesComponent,
     SignupComponent,
-    BackActiveMapComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,

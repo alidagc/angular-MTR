@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from '../services/auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -12,8 +13,12 @@ export class SignupComponent implements OnInit {
   emailValue: string;
   passwordValue: string;
 
+  errorMessage: string;
+
   constructor(
-    private authService : AuthServiceService
+    private authService : AuthServiceService,
+    private router : Router
+
   ) { }
 
   ngOnInit() {
@@ -23,12 +28,19 @@ export class SignupComponent implements OnInit {
     alert('SUBMITTED');
     this.authService.signup(this.firstNameValue, this.lastNameValue, this.emailValue, this.passwordValue)
       .then((resultFromApi)=>{
-        alert('Sign up worked! ' + resultFromApi._id)
-        console.log(resultFromApi);
+        this.firstNameValue = "";
+        this.lastNameValue = "";
+        this.emailValue = "";
+        this.passwordValue = "";
+        this.errorMessage = "";
+
+        //Redirect to "Welcome! what would you like to do" page
+        // this.router.navigate(['/myRoutes']);
+
       })
       .catch((err)=>{
-        alert('Error!');
-        console.log(err);
+        const parsedError = err.json();
+        this.errorMessage = parsedError.message;
       })
   }
 

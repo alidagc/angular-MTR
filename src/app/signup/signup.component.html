@@ -1,7 +1,9 @@
 <h2> Sign Up </h2>
 
 <p>Sign up to create your travel routes!</p>
-
+<p *ngIf="errorMessage" class="error">
+  {{ errorMessage }}
+</p>
 <form (ngSubmit)="doSignUp()">
   <label for="first-name-input"> First Name </label>
   <input id="first-name-input" type="text" name="firstNameValue" [(ngModel)]="firstNameValue" required/>
@@ -15,8 +17,8 @@
   <input id="email-input" type="text" name="emailValue" [(ngModel)]="emailValue" required/>
 
   <label for="password-input"> Password </label>
-  <input id="password-input" type="text" name="passwordValue" [(ngModel)]="passwordValue" required/>
+  <input id="password-input" type="password" name="passwordValue" [(ngModel)]="passwordValue" required/>
 
-  <button> Sign Up </button>
+  <button> SIGN UP </button>
 
 </form>

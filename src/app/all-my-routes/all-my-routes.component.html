@@ -1,0 +1,40 @@
+<h2> Hello, {{currentUser.firstName}}</h2>
+<p> Here are your routes: </p>
+
+<p *ngIf="routesError" class= "error">
+  {{routesError}}
+</p>
+
+<ul>
+  <li *ngFor=" let route of allMyRoutes">
+    <h3>{{route.routeName}}</h3>
+  </li>
+</ul>
+
+
+<button *ngIf="!isShowingForm" (click)="showAddRouteForm()"> ADD NEW ROUTE </button>
+
+<div *ngIf="isShowingForm">
+  <h2>Add a new route!</h2>
+
+  <form (ngSubmit)="saveNewRoute()">
+
+    <label for="route-name-input"> Name </label>
+    <input id="route-name-input" type="text" name="newRouteName" [(ngModel)]="newRouteName">
+    <br>
+    <!-- <label for="route-location-input"> Location (City, Country) </label>
+    <input id="route-location-input" type="text" name="newRouteLocation" [(ngModel)]="newRouteLocation">
+    <br> -->
+    <label for="route-description-input"> Description </label>
+    <input id="route-description-input" type="text" name="newRouteDescription" [(ngModel)]="newRouteDescription">
+    <br>
+    <label for="route-duration-input"> Duration (in hours)</label>
+    <input id="route-duration-input" type="number" name="newRouteDuration" [(ngModel)]="newRouteDuration">
+    <!-- <br>
+    <label for="route-tags-input"> Tags (separated by commas)</label>
+    <input id="route-tags-input" type="text" name="newRouteTags" [(ngModel)]="newRouteTags">
+    <br> -->
+    <button> ADD ROUTE </button>
+  </form>
+
+</div>

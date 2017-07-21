@@ -1,10 +1,15 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<header>
-  <h1> My Travel Routes </h1>
-</header>
 
-<router-outlet></router-outlet>
+<div id="map-and-window-wrapper">
+  <div id="content-window">
+    <router-outlet>
 
-<footer>
-  <p>Made with 🚀 at Ironhack</p>
-</footer>
+      <!-- <home-page></home-page> -->
+      <!-- <app-signup> </app-signup> -->
+      <login></login>
+      <!-- <all-my-routes></all-my-routes> -->
+
+    </router-outlet>
+  </div>
+  <button  id="logout-button" (click)="logMeOut"> LOG OUT </button>
+  <div id="gmap"></div>
+</div>

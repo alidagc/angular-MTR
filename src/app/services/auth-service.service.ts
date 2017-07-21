@@ -44,8 +44,8 @@ export class AuthServiceService {
         'http://localhost:3000/api/login',
         // Form body information to send to the back end (req.body)
         {
-          UserEmail: theEmail,
-          UserPassword: thePassword
+          userEmail: theEmail,
+          userPassword: thePassword
         },
         // Send the cookies across domains. Password need this to work.
         {withCredentials: true}
