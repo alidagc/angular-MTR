@@ -9,12 +9,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AllRoutesComponent } from './all-routes/all-routes.component';
+import { SignupComponent } from './signup/signup.component';
+import { BackActiveMapComponent } from './back-active-map/back-active-map.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    AllRoutesComponent
+    AllRoutesComponent,
+    SignupComponent,
+    BackActiveMapComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,22 @@
+<h2> Sign Up </h2>
+
+<p>Sign up to create your travel routes!</p>
+
+<form (ngSubmit)="doSignUp()">
+  <label for="first-name-input"> First Name </label>
+  <input id="first-name-input" type="text" name="firstNameValue" [(ngModel)]="firstNameValue" required/>
+
+
+  <label for="last-name-input"> Last Name </label>
+  <input id="last-name-input" type="text" name="lastNameValue" [(ngModel)]="lastNameValue" required/>
+
+
+  <label for="email-input"> Email </label>
+  <input id="email-input" type="text" name="emailValue" [(ngModel)]="emailValue" required/>
+
+  <label for="password-input"> Password </label>
+  <input id="password-input" type="text" name="passwordValue" [(ngModel)]="passwordValue" required/>
+
+  <button> Sign Up </button>
+
+</form>
