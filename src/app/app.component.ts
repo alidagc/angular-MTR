@@ -337,33 +337,55 @@ export class AppComponent implements OnInit {
         ]
           };
       var map = new google.maps.Map(document.getElementById("gmap"), myMap);
+      map.setOptions({disableDoubleClickZoom: true });
 
 // MAKING PATHS
       var poly;
       poly = new google.maps.Polyline({
           strokeColor: '#FC565D',
           strokeOpacity: 1.0,
-          strokeWeight: 2
+          strokeWeight: 3,
+          draggable: true,
+          editable: true
         });
         poly.setMap(map);
 
-      map.addListener('click', addLatLng);
+      map.addListener('rightclick', addLatLng);
       // Handles click events on a map, and adds a new point to the Polyline.
       function addLatLng(event) {
         var path = poly.getPath();
         path.push(event.latLng);
+
+//on save route button lcick
+        var arrayOfPoints = [];
+        path.b.forEach((oneThing) => {
+          arrayOfPoints.push({
+            lat: oneThing.lat(),
+            lng: oneThing.lng()
+          });
+        });
+        console.log(arrayOfPoints);
         // Because path is an MVCArray, we can simply append a new coordinate
         // and it will automatically appear.
       }
 
 //MAKING PINS
-      map.addListener('rightclick', addLatLngForMarker);
+      map.addListener('dblclick', addPin);
 
-      function addLatLngForMarker(event) {
+      function addPin(event) {
+
         var marker = new google.maps.Marker({
         position: event.latLng,
-        map: map
+        map: map,
+        animation: google.maps.Animation.DROP,
+        icon: '/assets/images/pin.svg',
+        draggable: true
         });
+
+        var pin = {
+          lat: marker.position.lat(),
+          lng: marker.position.lng()
+        };
       }
     }
 

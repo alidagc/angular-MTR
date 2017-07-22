@@ -28,12 +28,17 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Megrim', cursive;
+}
+
 body {
 	line-height: 1;
 	font-family: 'Lato', sans-serif;
 	font-weight: 300;
 	/*font-family: 'Megrim', cursive;*/
   font-size: 16px;
+	color: #848383;
 }
 ol, ul {
 	list-style: none;
@@ -46,14 +51,9 @@ q:before, q:after {
 	content: '';
 	content: none;
 }
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
 
-/*---------------------*/
 
-/*Element styling*/
+/* Site-wide element styling ---------------------*/
 
 button {
   background: none;
@@ -62,7 +62,7 @@ button {
   font-size: .7em;
   line-height: 1;
   margin: 0.5em;
-  padding: .7em 3em;
+  padding: .7em 2em;
   color: grey;
   opacity: 0.7;
   transition: 0.25s;
@@ -88,6 +88,16 @@ button:focus {
   transform: translateY(-0.20em);
 }
 
+input, textarea {
+	border-radius: 2px;
+	border: .5px solid #A0A0A0;
+	background-color: rgba(252, 252, 252, 0.9);
+	font-family: 'Lato', sans-serif;
+	font-size: 1em;
+	line-height: 1.5em;
+	width: 100%;
+	margin: 2% 0;
+}
 
 .error {
   padding: 15px;
