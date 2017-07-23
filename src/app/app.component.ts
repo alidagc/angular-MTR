@@ -342,7 +342,7 @@ export class AppComponent implements OnInit {
 // MAKING PATHS
       var poly;
       poly = new google.maps.Polyline({
-          strokeColor: '#FC565D',
+          strokeColor: '#EDA034',
           strokeOpacity: 1.0,
           strokeWeight: 3,
           draggable: true,

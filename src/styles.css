@@ -1,7 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+/*RESET ----------------------------------*/
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -28,18 +25,7 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
-h1, h2, h3, h4, h5, h6 {
-	font-family: 'Megrim', cursive;
-}
 
-body {
-	line-height: 1;
-	font-family: 'Lato', sans-serif;
-	font-weight: 300;
-	/*font-family: 'Megrim', cursive;*/
-  font-size: 16px;
-	color: #848383;
-}
 ol, ul {
 	list-style: none;
 }
@@ -52,20 +38,51 @@ q:before, q:after {
 	content: none;
 }
 
-
 /* Site-wide element styling ---------------------*/
 
-button {
+body {
+	line-height: 1;
+	/*font-family: 'Lato', sans-serif;*/
+	/*font-family: 'Megrim', cursive;*/
+	font-family: 'Open Sans', sans-serif;
+	letter-spacing: 1.5px;
+	font-weight: 300;
+  font-size: 14px;
+	color: #848383;
+}
+
+h1 {
+	font-family: 'Codystar', cursive;
+	font-size: 1.6em;
+	font-weight: bold;
+	letter-spacing: 1px;
+	color: #EDA034;
+	margin: 6% 0;
+}
+h2 {
+	font-family: 'Codystar', cursive;
+	/*font-family: 'Meddon', cursive;*/
+	font-size: 1.3em;
+	font-weight: bold;
+	margin: 6% 0;
+	color: #EDA034;
+	letter-spacing: 1px;
+
+}
+
+button, .button {
   background: none;
   border: 1px solid #FC565D;
+	border-radius: 100px;
   font: inherit;
-  font-size: .7em;
+	font-size: 0.9em;
   line-height: 1;
   margin: 0.5em;
   padding: .7em 2em;
-  color: grey;
-  opacity: 0.7;
+  color: #FC565D;
+  opacity: 0.8;
   transition: 0.25s;
+	text-transform: uppercase;
 }
 
 button:focus {
@@ -90,7 +107,7 @@ button:focus {
 
 input, textarea {
 	border-radius: 2px;
-	border: .5px solid #A0A0A0;
+	border: .3px solid #D2D2D2;
 	background-color: rgba(252, 252, 252, 0.9);
 	font-family: 'Lato', sans-serif;
 	font-size: 1em;
@@ -99,6 +116,12 @@ input, textarea {
 	margin: 2% 0;
 }
 
+.inverted-button {
+  background-color: #FC565D;
+	border-radius: 100px;
+  padding: 10px 20px;
+  color: white;
+}
 .error {
   padding: 15px;
   border: 2px solid crimson;

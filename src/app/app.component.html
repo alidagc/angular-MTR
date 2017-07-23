@@ -10,6 +10,12 @@
 
     </router-outlet>
   </div>
-  <button  id="logout-button" (click)="logMeOut"> LOG OUT </button>
+  <div id="navigation-buttons-left">
+    <h1>wanderlist</h1>
+    <a routerLink="/myRoutes"><button  class="inverted-button"> my routes </button></a>
+    <a routerLink="/myRoutes/new"><button  class="inverted-button"> new route </button></a>
+    <button  class="inverted-button" (click)="logMeOut"> LOG OUT </button>
+
+  </div>
   <div id="gmap"></div>
 </div>
