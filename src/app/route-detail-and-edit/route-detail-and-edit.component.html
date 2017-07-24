@@ -1,0 +1,53 @@
+<div *ngIf="!isShowingForm">
+  <h1> route name </h1> <!--* needs to be dynamic -->
+  <h2>location:</h2>
+  <!-- <p>{{}}</p> -->
+  <h2>description:</h2>
+  <!-- <p>{{}}</p> -->
+  <h2>duration:</h2>
+  <!-- <p>{{}}</p> -->
+  <div>
+    <h2>tags:</h2>
+    <button class="tags" *ngFor="let oneTag of routeTags">{{oneTag}}</button>
+  </div>
+
+  <!-- <p *ngIf="routesError" class= "error">
+    {{routesError}}
+  </p> -->
+
+  <button class="inverted-button edit-button" *ngIf="!isShowingForm" (click)="showEditRouteForm()"> edit route </button>
+  <a routerLink="/myRoutes"><button> go back to my routes</button></a>
+</div>
+
+
+<div *ngIf="isShowingForm">
+  <h1>edit your route</h1>
+
+  <form (ngSubmit)="saveEditedRoute()">
+    <label for="route-name-input"> name </label>
+    <input id="route-name-input" type="text" name="editRouteName"
+      value="routeName" [(ngModel)]="editRouteName">
+    <br>
+    <label for="route-location-input"> location (city, country) </label>
+    <input id="route-location-input" type="text" name="editRouteLocation"
+      value="routeLocation" [(ngModel)]="editRouteLocation">
+    <br>
+    <label for="route-description-input"> description </label>
+    <textarea id="route-description-input" type="text" name="editwRouteDescription"
+      value="routeDescription" [(ngModel)]="editwRouteDescription"></textarea>
+    <br>
+    <label for="route-duration-input"> duration (in hours)</label>
+    <input id="route-duration-input" type="number" step=".5" name="ediRouteDuration"
+      value="routeDuration" [(ngModel)]="ediRouteDuration">
+    <br>
+    <label for="route-tags-input"> tags (separated by commas)</label>
+    <input id="route-tags-input" type="text" name="editRouteTags"
+      value="" [(ngModel)]="editRouteTags">
+    <br>
+
+    <p>On the map, click and drag on path points & pins to change their location. To edit pins, click on the marker.</p>
+    <button class="inverted-button save-edited-button"> save route </button>
+    <button class="delete-route-button"> delete route </button>
+  </form>
+
+</div>

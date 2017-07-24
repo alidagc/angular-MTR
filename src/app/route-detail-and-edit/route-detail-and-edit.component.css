@@ -1,0 +1,15 @@
+h2 {
+  font-size: 1em;
+}
+
+.tags {
+  font-size: .7em;
+}
+
+.edit-button {
+  width: 33%;
+}
+
+.save-edited-button, .delete-route-button {
+  width: 43%;
+}

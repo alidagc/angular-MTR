@@ -8,28 +8,26 @@
   margin-top: -10vh;
 }
 
-#router-outlet {
-  width: 100%;
-}
 #content-window {
   background-color: rgba(252, 252, 252, 0.9);
   border: 3px solid #FC565D;
   height: 78vh;
   width: 20%;
   min-width: 300px;
-  /*box-shadow: 10px 10px 18px -8px rgba(0,0,0,0.75);*/
+  box-shadow: 10px 10px 18px -8px rgba(0,0,0,0.75);
   position: absolute;
-  top: 14%;
+  top: 13%;
   left:4%;
   z-index: 999;
   padding: 3%;
+  overflow-y: scroll;
 }
 
 #content-window:after {
   content: " ";
   position: absolute;
   z-index: -1;
-  top:2px;
+  top: 2px;
   left: 2px;
   right: 2px;
   bottom: 2px;
@@ -49,4 +47,26 @@
   float: right;
   width: 65%;
   min-width: 85px;
+}
+
+#landing-page, #welcome-user {
+  text-align: center;
+}
+
+#landing-page small {
+  color: #FFB157;
+}
+
+#landing-page h1 {
+  font-size: 4em;
+  line-height: 1;
+  margin-bottom: .2em;
+}
+#landing-page button, #welcome-user button {
+  width: 80%;
+  line-height: 1.5;
+}
+
+#welcome-user {
+  padding-top: 30%;
 }

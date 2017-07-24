@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from './services/auth-service.service';
 import { Router } from '@angular/router';
 
-declare var google: any;
+declare const google: any;
 
 @Component({
   // moduleId: module.id,
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   ) { }
 
     ngOnInit() {
-      var myMap = {
+      const myMap = {
           center: new google.maps.LatLng(40.758896, -73.985130),
           zoom:15,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -334,15 +334,15 @@ export class AppComponent implements OnInit {
                     }
                 ]
             }
-        ]
+          ]
           };
-      var map = new google.maps.Map(document.getElementById("gmap"), myMap);
+      const map = new google.maps.Map(document.getElementById("gmap"), myMap);
       map.setOptions({disableDoubleClickZoom: true });
 
 // MAKING PATHS
-      var poly;
+      let poly;
       poly = new google.maps.Polyline({
-          strokeColor: '#EDA034',
+          strokeColor: '#FFB157',
           strokeOpacity: 1.0,
           strokeWeight: 3,
           draggable: true,
@@ -353,11 +353,11 @@ export class AppComponent implements OnInit {
       map.addListener('rightclick', addLatLng);
       // Handles click events on a map, and adds a new point to the Polyline.
       function addLatLng(event) {
-        var path = poly.getPath();
+        const path = poly.getPath();
         path.push(event.latLng);
 
 //on save route button lcick
-        var arrayOfPoints = [];
+        const arrayOfPoints = [];
         path.b.forEach((oneThing) => {
           arrayOfPoints.push({
             lat: oneThing.lat(),
@@ -369,24 +369,35 @@ export class AppComponent implements OnInit {
         // and it will automatically appear.
       }
 
-//MAKING PINS
+//MAKING PINS (marker + windows)
       map.addListener('dblclick', addPin);
 
       function addPin(event) {
 
-        var marker = new google.maps.Marker({
-        position: event.latLng,
-        map: map,
-        animation: google.maps.Animation.DROP,
-        icon: '/assets/images/pin.svg',
-        draggable: true
+        const marker = new google.maps.Marker({
+          position: event.latLng,
+          map: map,
+          animation: google.maps.Animation.DROP,
+          icon: '/assets/images/pin.svg',
+          draggable: true
         });
 
-        var pin = {
+        const pin = {
           lat: marker.position.lat(),
           lng: marker.position.lng()
         };
+
+        const infowindow = new google.maps.InfoWindow({
+          content: ''
+        });
+
+        infowindow.open(map, marker);
+
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
       }
+
     }
 
 // lOGOUT BUTTON ---------------------------------------

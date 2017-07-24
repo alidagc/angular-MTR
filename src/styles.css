@@ -38,12 +38,14 @@ q:before, q:after {
 	content: none;
 }
 
+/*COLORS ------------------------------*/
+/*#FC565D
+#FFB157
+#40BDB4*/
+
 /* Site-wide element styling ---------------------*/
 
-body {
-	line-height: 1;
-	/*font-family: 'Lato', sans-serif;*/
-	/*font-family: 'Megrim', cursive;*/
+body, input, textarea {
 	font-family: 'Open Sans', sans-serif;
 	letter-spacing: 1.5px;
 	font-weight: 300;
@@ -52,33 +54,31 @@ body {
 }
 
 h1 {
-	font-family: 'Codystar', cursive;
-	font-size: 1.6em;
-	font-weight: bold;
+	font-family: 'Yellowtail', cursive;
+	font-size: 3em;
 	letter-spacing: 1px;
-	color: #EDA034;
-	margin: 6% 0;
+	color: #FFB157;
 }
 h2 {
-	font-family: 'Codystar', cursive;
-	/*font-family: 'Meddon', cursive;*/
-	font-size: 1.3em;
-	font-weight: bold;
-	margin: 6% 0;
-	color: #EDA034;
+	font-family: 'Comfortaa', cursive;
+	font-size: 1.7em;
+	margin-bottom: 6%;
+	color: grey;
 	letter-spacing: 1px;
+}
 
+p {
+	margin: 1em 0;
 }
 
 button, .button {
-  background: none;
+	background: none;
   border: 1px solid #FC565D;
 	border-radius: 100px;
   font: inherit;
 	font-size: 0.9em;
-  line-height: 1;
   margin: 0.5em;
-  padding: .7em 2em;
+  padding: .7em 1em;
   color: #FC565D;
   opacity: 0.8;
   transition: 0.25s;
@@ -105,23 +105,20 @@ button:focus {
   transform: translateY(-0.20em);
 }
 
-input, textarea {
-	border-radius: 2px;
-	border: .3px solid #D2D2D2;
-	background-color: rgba(252, 252, 252, 0.9);
-	font-family: 'Lato', sans-serif;
-	font-size: 1em;
-	line-height: 1.5em;
-	width: 100%;
-	margin: 2% 0;
-}
-
 .inverted-button {
   background-color: #FC565D;
-	border-radius: 100px;
-  padding: 10px 20px;
   color: white;
 }
+
+input, textarea {
+	border-radius: 2px;
+	border: .3px solid #FFB157;
+	background-color: rgba(252, 252, 252, 0.9);
+	width: 93%;
+	margin: 2% 0;
+	padding: 2% 3%;
+}
+
 .error {
   padding: 15px;
   border: 2px solid crimson;

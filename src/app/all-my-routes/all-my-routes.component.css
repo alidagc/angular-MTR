@@ -1,0 +1,16 @@
+li button {
+  width: 95%;
+}
+
+ul {
+  height: 70%;
+}
+
+.inverted-button {
+  margin-left: 20%;
+  width: 60%;
+}
+
+textarea {
+  height: 5em;
+}

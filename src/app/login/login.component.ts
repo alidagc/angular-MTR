@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.authService.checklogin()
     .then((resultFromApi)=>{
-      this.router.navigate(['/myRoutes']);
+      // this.router.navigate(['/']);
     })
     .catch((err)=>{})
   }
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       this.loginEmail = "";
       this.loginPassword = "";
       this.loginErrorMessage = "";
-      this.router.navigate(['/myRoutes']);
+      this.router.navigate(['/']);
     })
     .catch((err)=>{
       const parsedError = err.json();

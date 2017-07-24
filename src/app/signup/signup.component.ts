@@ -34,8 +34,7 @@ export class SignupComponent implements OnInit {
         this.passwordValue = "";
         this.errorMessage = "";
 
-        //Redirect to "Welcome! what would you like to do" page
-        // this.router.navigate(['/myRoutes']);
+        this.router.navigate(['/']);
 
       })
       .catch((err)=>{

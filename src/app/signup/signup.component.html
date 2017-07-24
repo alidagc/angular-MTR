@@ -1,6 +1,6 @@
-<h2> Sign Up </h2>
+<h1> Sign Up </h1>
 
-<p>Sign up to create your travel routes!</p>
+<p>Create an account to build<br>and browse routes</p>
 <p *ngIf="errorMessage" class="error">
   {{ errorMessage }}
 </p>
@@ -8,10 +8,8 @@
   <label for="first-name-input"> First Name </label>
   <input id="first-name-input" type="text" name="firstNameValue" [(ngModel)]="firstNameValue" required/>
 
-
   <label for="last-name-input"> Last Name </label>
   <input id="last-name-input" type="text" name="lastNameValue" [(ngModel)]="lastNameValue" required/>
-
 
   <label for="email-input"> Email </label>
   <input id="email-input" type="text" name="emailValue" [(ngModel)]="emailValue" required/>
@@ -19,6 +17,9 @@
   <label for="password-input"> Password </label>
   <input id="password-input" type="password" name="passwordValue" [(ngModel)]="passwordValue" required/>
 
-  <button> SIGN UP </button>
+  <input id="radio-input" type="radio"/>
+  <label id="radio-label" for="radio-input"> Sign up to get our newsletters with great routes from around the world! </label>
+
+  <button class="inverted-button"> SAVE </button>
 
 </form>

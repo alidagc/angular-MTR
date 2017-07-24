@@ -11,6 +11,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { AllRoutesComponent } from './all-my-routes/all-my-routes.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
+import { RouteDetailAndEditComponent } from './route-detail-and-edit/route-detail-and-edit.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { LoginComponent } from './login/login.component';
     HomePageComponent,
     AllRoutesComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    RouteDetailAndEditComponent
   ],
   imports: [
     BrowserModule,

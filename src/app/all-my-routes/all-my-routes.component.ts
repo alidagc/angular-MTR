@@ -51,6 +51,10 @@ export class AllRoutesComponent implements OnInit {
     );
   } // close getMyRoutes
 
+  // goToSingleRouteView()!!!!!!!!!!!!!
+  // this.router.navigate(['/route._id']);
+  //GOTTA BUILD FOR GOING TO SPECIFIC ROUTE ID URL
+
   showAddRouteForm(){
     this.isShowingForm = true;
   }
@@ -60,6 +64,7 @@ export class AllRoutesComponent implements OnInit {
       .subscribe((newRouteForApi) =>{
         this.allMyRoutes.push(newRouteForApi);
         this.isShowingForm = false;
+        this.router.navigate(['/newRouteForApi._id']);
       }
       )
   }
