@@ -6,10 +6,6 @@
   <p>{{oneRoute.description}}</p>
   <h2>duration:</h2>
   <p>{{oneRoute.duration}}</p>
-  <div>
-    <h2>tags:</h2>
-    <button class="tags" *ngFor="let oneTag of routeTags">{{oneTag}}</button>
-  </div>
 
   <!-- <p *ngIf="routesError" class= "error">
     {{routesError}}
@@ -38,13 +34,10 @@
     <label for="route-duration-input"> duration (in hours)</label>
     <input id="route-duration-input" type="number" step=".5" name="ediRouteDuration" [(ngModel)]="oneRoute.duration">
     <br>
-    <label for="route-tags-input"> tags (separated by commas)</label>
-    <input id="route-tags-input" type="text" name="editRouteTags" [(ngModel)]="routeTags">
-    <br>
 
     <p>On the map, click and drag on path points & pins to change their location. To edit pins, click on the marker.</p>
     <button class="inverted-button save-edited-button"> save route </button>
-    <button class="delete-route-button"> delete route </button>
+    <button class="delete-route-button" (click)="deleteOneRoute(oneRoute._id)"> delete route </button>
   </form>
 
 </div>

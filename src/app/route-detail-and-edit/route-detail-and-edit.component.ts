@@ -17,8 +17,6 @@ export class RouteDetailAndEditComponent implements OnInit {
   isShowingForm: boolean = false;
   editRouteName: string = "";
 
-  routeTags: Array<string> = this.oneRoute.tags; // THIS NEEDS TO BE DYNAMIC
-
   constructor(
     private authService : AuthServiceService,
     private myRoutesFromApi: MyTravelRoutesServiceService,
@@ -47,11 +45,28 @@ export class RouteDetailAndEditComponent implements OnInit {
   getOneRoute(id){
     this.myRoutesFromApi.getOneRouteApi(id)
       .then((routebyId)=>{
-        console.log(routebyId)
         this.oneRoute = routebyId;
-      },
-    () => {
+      })
+     .catch(() => {
       this.oneRouteError = "Sorry, could not find your route";
     });
+  }
+
+  saveEditedRoute(){
+    this.myRoutesFromApi.editRoute(
+      this.oneRoute._id,
+      this.oneRoute.routeName,
+      this.oneRoute.location,
+      this.oneRoute.description,
+      this.oneRoute.duration
+      )
+      .then((editRouteForApi) =>{
+        this.router.navigate(['/myRoutes']);
+      })
+  }
+
+  deleteOneRoute(id){
+    this.myRoutesFromApi.deleteRoute(id)
+    .subscribe((deletedCharacter)=>{});
   }
 }

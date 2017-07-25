@@ -10,7 +10,9 @@
     <a routerLink="/myRoutes"><button class="inverted-button"> my routes </button></a>
     <a routerLink="/newroute"><button class="inverted-button"> new route </button></a>
     <button  class="inverted-button" (click)="logMeOut()"> LOG OUT </button>
+    <button  class="inverted-button" (click)="redrawPath()"> Draw route </button>
+    <button (click)="savePath()"> Save Path </button>
   </div>
-  <div id="gmap">
+  <div id="gmap" #map>
   </div>
 </div>

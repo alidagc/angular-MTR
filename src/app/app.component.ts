@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from './services/auth-service.service';
+import { MyTravelRoutesServiceService } from './services/my-travel-routes-service.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 declare const google: any;
 
@@ -12,14 +14,20 @@ declare const google: any;
 export class AppComponent implements OnInit {
 
   logoutError: string;
+  poly: any;
 
   constructor(
     private authService : AuthServiceService,
-    private router : Router
+    private router : Router,
+    private route : ActivatedRoute,
+    private routeService : MyTravelRoutesServiceService
   ) { }
 
     ngOnInit() {
       const myComponent = this;
+      this.routeService.route.subscribe(singleRoute => {
+        this.redrawPath(singleRoute.path);
+      })
       const myMap = {
           center: new google.maps.LatLng(40.758896, -73.985130),
           zoom:15,
@@ -339,23 +347,22 @@ export class AppComponent implements OnInit {
       const map = new google.maps.Map(document.getElementById("gmap"), myMap);
       map.setOptions({disableDoubleClickZoom: true });
 
-// MAKING PATHS
-      let poly;
-      poly = new google.maps.Polyline({
+// MAKING PATHS -----------------------------------------
+      this.poly = new google.maps.Polyline({
           strokeColor: '#FFB157',
           strokeOpacity: 1.0,
           strokeWeight: 3,
           draggable: true,
           editable: true
         });
-        poly.setMap(map);
+        this.poly.setMap(map);
 
       map.addListener('rightclick', addLatLng);
       // Handles click events on a map, and adds a new point to the Polyline.
       function addLatLng(event) {
-        const path = poly.getPath();
+        const path = myComponent.poly.getPath();
         path.push(event.latLng);
-        console.log(path);
+        console.log(path, "THIS ", this);
 
         // on save route button click
         const arrayOfPoints = [];
@@ -366,20 +373,6 @@ export class AppComponent implements OnInit {
           });
         });
         console.log(arrayOfPoints);
-
-        let savedPath = [];
-
-        const samplePolyArray = [
-          {lat: 40.75161349552274, lng: -73.97403717041016},
-          {lat: 40.75473441810165, lng: -73.97167682647705},
-          {lat: 40.750605666315856, lng: -73.9719986915589}
-        ]
-
-        samplePolyArray.forEach((onePair)=>{
-          savedPath.push(new google.maps.LatLng(onePair.lat, onePair.lng));
-        })
-        poly.setPath(savedPath);
-
       }
 
 //MAKING PINS (marker + windows)
@@ -415,7 +408,35 @@ export class AppComponent implements OnInit {
         // });
       }
 
+
+      // map.addListener('click', redrawPath);
+
+
+    } // END OF ONINIT
+
+// SAVE PATH --------------------------------------------
+savePath(){
+  this.routeService.savePathToRoute()
+
+}
+// REDRAW THE ROUTE PATH  -------------------------------
+   redrawPath(arrayOfPoints) {
+      let savedPath = [];
+
+      // const samplePolyArray = [
+      //   {lat: 40.75161349552274, lng: -73.97403717041016},
+      //   {lat: 40.75473441810165, lng: -73.97167682647705},
+      //   {lat: 40.750605666315856, lng: -73.9719986915589}
+      // ]
+
+      arrayOfPoints.forEach((onePair)=>{
+        savedPath.push(new google.maps.LatLng(onePair.lat, onePair.lng));
+      })
+
+      this.poly.setPath(savedPath);
     }
+
+
 
 // lOGOUT BUTTON ---------------------------------------
     logMeOut() {

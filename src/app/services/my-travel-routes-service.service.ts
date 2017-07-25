@@ -3,19 +3,21 @@
 
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class MyTravelRoutesServiceService {
   baseUrl = "http://localhost:3000";
+  route: any = new Subject();
 
   constructor(
     private httpResults: Http
   ) { }
 
-// POST Routes - make new routes
-newRoute(theName, theLocation, theDescription, theDuration, theTags, thePins, thePath) {
+// Make new routes
+newRoute(theName, theLocation, theDescription, theDuration) {
   return this.httpResults
   .post (
     'http://localhost:3000/api/myRoutes/new',
@@ -24,10 +26,7 @@ newRoute(theName, theLocation, theDescription, theDuration, theTags, thePins, th
       routeName: theName,
       routeLocation: theLocation,
       routeDescription: theDescription,
-      routeDuration: theDuration,
-      routeTags: theTags,
-      routePins: thePins,
-      routePath: thePath
+      routeDuration: theDuration
     },
     // Send the cookies across domains
     {withCredentials: true}
@@ -36,7 +35,7 @@ newRoute(theName, theLocation, theDescription, theDuration, theTags, thePins, th
   .map(res => res.json());
 }
 
-// GET Routes - show all routes
+// Show all routes
 allRoutes() {
   return this.httpResults
   .get(
@@ -53,6 +52,38 @@ getOneRouteApi(id){
     )
     // make request to api, receive a magical Angular object
     //use .map to turn it into a regular json object
-      .toPromise().then(result => result.json());
+      .toPromise().then(result => {
+        this.route.next(result.json());
+        return result.json()
+      });
   }
-}
+
+  editRoute(routeId, theName, theLocation, theDescription, theDuration){
+    let endPoint = "/api/"+ routeId +"/edit"
+    return this.httpResults.put(this.baseUrl+endPoint,
+      {
+        routeName: theName,
+        routeLocation: theLocation,
+        routeDescription: theDescription,
+        routeDuration: theDuration
+      },
+    {withCredentials: true}
+    )
+    // make request to api, receive a magical Angular object
+    //use .map to turn it into a regular json object
+      .toPromise().then(result => {
+        this.route.next(result.json());
+        return result.json()
+      });
+  }
+
+  deleteRoute(routeId){
+    let endPoint = "/api/"+ routeId +"/delete"
+    return this.httpResults.delete(this.baseUrl+endPoint,
+      {withCredentials: true})
+    }
+
+  savePathToRoute() {
+    
+  }
+  }

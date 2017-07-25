@@ -16,7 +16,6 @@ export class AddNewRouteComponent implements OnInit {
   newRouteLocation: string;
   newRouteDescription: string;
   newRouteDuration: number;
-  newRouteTags: string;
   newRoutePins: Array<object>;
   newRoutePath: Array<object>;
 
@@ -42,10 +41,7 @@ export class AddNewRouteComponent implements OnInit {
       this.newRouteName,
       this.newRouteLocation,
       this.newRouteDescription,
-      this.newRouteDuration,
-      this.newRouteTags,
-      this.newRoutePins,
-      this.newRoutePath
+      this.newRouteDuration
       ) // need to add new required fields
       .subscribe((newRouteForApi) =>{
         this.router.navigate(['/myRoutes']);
