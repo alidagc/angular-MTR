@@ -355,18 +355,31 @@ export class AppComponent implements OnInit {
       function addLatLng(event) {
         const path = poly.getPath();
         path.push(event.latLng);
+        console.log(path);
 
-//on save route button click
+        // on save route button click
         const arrayOfPoints = [];
-        path.b.forEach((oneThing) => {
+        path.b.forEach((onePosition) => {
           arrayOfPoints.push({
-            lat: oneThing.lat(),
-            lng: oneThing.lng()
+            lat: onePosition.lat(),
+            lng: onePosition.lng()
           });
         });
         console.log(arrayOfPoints);
-        // Because path is an MVCArray, we can simply append a new coordinate
-        // and it will automatically appear.
+
+        let savedPath = [];
+
+        const samplePolyArray = [
+          {lat: 40.75161349552274, lng: -73.97403717041016},
+          {lat: 40.75473441810165, lng: -73.97167682647705},
+          {lat: 40.750605666315856, lng: -73.9719986915589}
+        ]
+
+        samplePolyArray.forEach((onePair)=>{
+          savedPath.push(new google.maps.LatLng(onePair.lat, onePair.lng));
+        })
+        poly.setPath(savedPath);
+
       }
 
 //MAKING PINS (marker + windows)
