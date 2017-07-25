@@ -8,21 +8,26 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class MyTravelRoutesServiceService {
+  baseUrl = "http://localhost:3000";
 
   constructor(
     private httpResults: Http
   ) { }
 
 // POST Routes - make new routes
-newRoute(theName, theDescription, theDuration) {
+newRoute(theName, theLocation, theDescription, theDuration, theTags, thePins, thePath) {
   return this.httpResults
   .post (
     'http://localhost:3000/api/myRoutes/new',
     // Form body information to send to the backend
     {
       routeName: theName,
+      routeLocation: theLocation,
       routeDescription: theDescription,
-      routeDuration: theDuration
+      routeDuration: theDuration,
+      routeTags: theTags,
+      routePins: thePins,
+      routePath: thePath
     },
     // Send the cookies across domains
     {withCredentials: true}
@@ -30,7 +35,6 @@ newRoute(theName, theDescription, theDuration) {
   // Parse the JSON
   .map(res => res.json());
 }
-
 
 // GET Routes - show all routes
 allRoutes() {
@@ -42,4 +46,13 @@ allRoutes() {
   .map(res => res.json());
 }
 
+getOneRouteApi(id){
+    let endPoint = "/api/"+id
+    return this.httpResults.get(this.baseUrl+endPoint,
+    {withCredentials: true}
+    )
+    // make request to api, receive a magical Angular object
+    //use .map to turn it into a regular json object
+      .toPromise().then(result => result.json());
+  }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from '../services/auth-service.service';
 import { MyTravelRoutesServiceService } from '../services/my-travel-routes-service.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-route-detail-and-edit',
@@ -9,24 +9,49 @@ import { Router } from '@angular/router';
   styleUrls: ['./route-detail-and-edit.component.css']
 })
 export class RouteDetailAndEditComponent implements OnInit {
-  isShowingForm: boolean = false;
-  routeTags: Array<string> = ["test1", "test2", "test3"]; // THIS NEEDS TO BE DYNAMIC
 
+  isLoggedin: boolean = true;
+  currentUser: any = {};
+  oneRoute: any = {};
+  oneRouteError: string;
+  isShowingForm: boolean = false;
+  editRouteName: string = "";
+
+  routeTags: Array<string> = this.oneRoute.tags; // THIS NEEDS TO BE DYNAMIC
 
   constructor(
     private authService : AuthServiceService,
     private myRoutesFromApi: MyTravelRoutesServiceService,
-    private router : Router
+    private router : Router,
+    private activatedRoute : ActivatedRoute
   ) { }
 
   ngOnInit() {
-  }
+    this.authService.checklogin()
+    .then((resultFromApi)=>{
+      this.currentUser = resultFromApi;
+      })
+    .catch((err)=>{
+      this.isLoggedin = false;
+    });
+
+    this.activatedRoute.params.subscribe((params) => {
+      this.getOneRoute(params.id);
+    })
+}
 
   showEditRouteForm(){
     this.isShowingForm = true;
   }
 
-  // saveEditedRoute() { //NEED TO CREATE THIS
-  //
-  // }
+  getOneRoute(id){
+    this.myRoutesFromApi.getOneRouteApi(id)
+      .then((routebyId)=>{
+        console.log(routebyId)
+        this.oneRoute = routebyId;
+      },
+    () => {
+      this.oneRouteError = "Sorry, could not find your route";
+    });
+  }
 }

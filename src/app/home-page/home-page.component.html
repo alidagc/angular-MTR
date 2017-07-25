@@ -1,0 +1,22 @@
+
+<!-- LANDING PAGE - SCREEN 1 -->
+    <div *ngIf="!isLoggedin" id="landing-page">
+      <h1>welcome to wanderlist!</h1>
+      <small>make and share personalized <br>tours of the places you love</small>
+      <p>the dive bar in the little alley,<br>the perfect spot to catch the sunset,<br>that place where you order off menu...</p>
+      <h2>share your city,<br> tell your story</h2>
+      <br>
+      <a routerLink="/signup"><button class="inverted-button"> SIGN UP </button></a>
+      <a routerLink="/login"><button> LOG IN </button></a>
+    </div>
+
+<!-- WELCOME USER - SCREEN 1.5 -->
+    <div *ngIf="isLoggedin" id="welcome-user">
+      <h1> hi, {{currentUser.firstName}}</h1>
+      <br><br>
+      <h2>where are we <br>off to today?</h2>
+      <br>
+      <a routerLink="/myRoutes"><button> Browse and edit your<br> current routes </button></a>
+      <br><br>
+      <a routerLink="/newroute"><button  class="inverted-button"> Create a new route with <br>your favorite spots </button></a>
+    </div>

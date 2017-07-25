@@ -1,0 +1,21 @@
+#landing-page, #welcome-user {
+  text-align: center;
+}
+
+#landing-page small {
+  color: #FFB157;
+}
+
+#landing-page h1 {
+  font-size: 4em;
+  line-height: 1;
+  margin: .9em 0 .2em 0;
+}
+#landing-page button, #welcome-user button {
+  width: 80%;
+  line-height: 1.5;
+}
+
+#welcome-user {
+  padding-top: 30%;
+}

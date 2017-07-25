@@ -14,14 +14,6 @@ export class AllRoutesComponent implements OnInit {
   allMyRoutes: any[] = [];
   routesError: string;
 
-  isShowingForm: boolean = false;
-
-  newRouteName: string;
-  newRouteLocation: string;
-  newRouteDescription: string;
-  newRouteDuration: number;
-  newRouteTags: string;
-
   constructor(
     private authService : AuthServiceService,
     private myRoutesFromApi: MyTravelRoutesServiceService,
@@ -51,21 +43,4 @@ export class AllRoutesComponent implements OnInit {
     );
   } // close getMyRoutes
 
-  // goToSingleRouteView()!!!!!!!!!!!!!
-  // this.router.navigate(['/route._id']);
-  //GOTTA BUILD FOR GOING TO SPECIFIC ROUTE ID URL
-
-  showAddRouteForm(){
-    this.isShowingForm = true;
   }
-
-  saveNewRoute(){
-    this.myRoutesFromApi.newRoute(this.newRouteName, this.newRouteDescription, this.newRouteDuration) // need to add new required fields
-      .subscribe((newRouteForApi) =>{
-        this.allMyRoutes.push(newRouteForApi);
-        this.isShowingForm = false;
-        this.router.navigate(['/newRouteForApi._id']);
-      }
-      )
-  }
-}

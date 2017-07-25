@@ -4,8 +4,14 @@ import { AllRoutesComponent } from './all-my-routes/all-my-routes.component';
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { RouteDetailAndEditComponent } from './route-detail-and-edit/route-detail-and-edit.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { AddNewRouteComponent } from './add-new-route/add-new-route.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    component: HomePageComponent
+  },
   {
     path: 'myRoutes',
     component: AllRoutesComponent
@@ -19,7 +25,11 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'routeID', //this needs to be dynamic
+    path: 'newroute', //this needs to be dynamic
+    component: AddNewRouteComponent
+  },
+  {
+    path: ':id', //this needs to be dynamic
     component: RouteDetailAndEditComponent
   },
   { path: '**', redirectTo: '' },

@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 declare const google: any;
 
 @Component({
-  // moduleId: module.id,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
@@ -20,6 +19,7 @@ export class AppComponent implements OnInit {
   ) { }
 
     ngOnInit() {
+      const myComponent = this;
       const myMap = {
           center: new google.maps.LatLng(40.758896, -73.985130),
           zoom:15,
@@ -356,7 +356,7 @@ export class AppComponent implements OnInit {
         const path = poly.getPath();
         path.push(event.latLng);
 
-//on save route button lcick
+//on save route button click
         const arrayOfPoints = [];
         path.b.forEach((oneThing) => {
           arrayOfPoints.push({
@@ -381,21 +381,25 @@ export class AppComponent implements OnInit {
           icon: '/assets/images/pin.svg',
           draggable: true
         });
+        console.log(marker)
 
         const pin = {
           lat: marker.position.lat(),
           lng: marker.position.lng()
         };
 
-        const infowindow = new google.maps.InfoWindow({
-          content: ''
-        });
+        console.log(pin);
 
-        infowindow.open(map, marker);
-
-        marker.addListener('click', function() {
-          infowindow.open(map, marker);
-        });
+        // const infowindow = new google.maps.InfoWindow({
+        //   content: '<app-add-new-route></app-add-new-route>'
+        // });
+        //
+        // infowindow.open(map, marker);
+        //
+        // marker.addListener('click', function() {
+        //   infowindow.open(map, marker);
+        //   // myComponent.authService.addMarker()
+        // });
       }
 
     }
@@ -404,7 +408,7 @@ export class AppComponent implements OnInit {
     logMeOut() {
       this.authService.logout()
          .then(()=>{
-           this.router.navigate(['/']);
+           this.router.navigate(['']);
          })
          .catch(()=>{
            this.logoutError = 'Log out did not work';

@@ -1,11 +1,11 @@
 <div *ngIf="!isShowingForm">
-  <h1> route name </h1> <!--* needs to be dynamic -->
+  <h1>{{oneRoute.routeName}}</h1> <!--* needs to be dynamic -->
   <h2>location:</h2>
-  <!-- <p>{{}}</p> -->
+  <p>{{oneRoute.location}}</p>
   <h2>description:</h2>
-  <!-- <p>{{}}</p> -->
+  <p>{{oneRoute.description}}</p>
   <h2>duration:</h2>
-  <!-- <p>{{}}</p> -->
+  <p>{{oneRoute.duration}}</p>
   <div>
     <h2>tags:</h2>
     <button class="tags" *ngFor="let oneTag of routeTags">{{oneTag}}</button>
@@ -25,24 +25,21 @@
 
   <form (ngSubmit)="saveEditedRoute()">
     <label for="route-name-input"> name </label>
-    <input id="route-name-input" type="text" name="editRouteName"
-      value="routeName" [(ngModel)]="editRouteName">
+    <input id="route-name-input" type="text" name="editRouteName" [(ngModel)]="oneRoute.routeName">
     <br>
     <label for="route-location-input"> location (city, country) </label>
-    <input id="route-location-input" type="text" name="editRouteLocation"
-      value="routeLocation" [(ngModel)]="editRouteLocation">
+    <input id="route-location-input" type="text" name="editRouteLocation" [(ngModel)]="oneRoute.location">
     <br>
     <label for="route-description-input"> description </label>
     <textarea id="route-description-input" type="text" name="editwRouteDescription"
-      value="routeDescription" [(ngModel)]="editwRouteDescription"></textarea>
+       [(ngModel)]="oneRoute.description">
+    </textarea>
     <br>
     <label for="route-duration-input"> duration (in hours)</label>
-    <input id="route-duration-input" type="number" step=".5" name="ediRouteDuration"
-      value="routeDuration" [(ngModel)]="ediRouteDuration">
+    <input id="route-duration-input" type="number" step=".5" name="ediRouteDuration" [(ngModel)]="oneRoute.duration">
     <br>
     <label for="route-tags-input"> tags (separated by commas)</label>
-    <input id="route-tags-input" type="text" name="editRouteTags"
-      value="" [(ngModel)]="editRouteTags">
+    <input id="route-tags-input" type="text" name="editRouteTags" [(ngModel)]="routeTags">
     <br>
 
     <p>On the map, click and drag on path points & pins to change their location. To edit pins, click on the marker.</p>

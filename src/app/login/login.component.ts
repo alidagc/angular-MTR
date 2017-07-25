@@ -9,6 +9,9 @@ import { AuthServiceService } from '../services/auth-service.service';
 })
 
 export class LoginComponent implements OnInit {
+
+  isLoggedOut: boolean = false;
+  
   loginEmail: string;
   loginPassword: string;
   errorMessage: string;
@@ -22,9 +25,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.authService.checklogin()
     .then((resultFromApi)=>{
-      // this.router.navigate(['/']);
+      this.router.navigate(['/']);
     })
-    .catch((err)=>{})
+    .catch((err)=>{
+      this.isLoggedOut = true;
+    })
   }
 
   doLogIn(){

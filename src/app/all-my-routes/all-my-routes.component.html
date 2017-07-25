@@ -1,4 +1,3 @@
-<div *ngIf="!isShowingForm">
   <h1> my routes </h1>
   <p>click to view route details and edit</p>
 
@@ -8,36 +7,8 @@
 
   <ul>
     <li *ngFor=" let route of allMyRoutes">
-        <button (click)="goToSingleRouteView()"> {{route.routeName}}</button>
+        <a [routerLink]="['/',route._id]"> <button> {{route.routeName}} </button> </a>
     </li>
   </ul>
 
-  <button class="inverted-button" *ngIf="!isShowingForm" (click)="showAddRouteForm()"> ADD NEW ROUTE </button>
-</div>
-
-
-<div *ngIf="isShowingForm">
-  <h1>add a new route!</h1>
-
-  <form (ngSubmit)="saveNewRoute()">
-    <label for="route-name-input"> name </label>
-    <input id="route-name-input" type="text" name="newRouteName" [(ngModel)]="newRouteName">
-    <br>
-    <label for="route-location-input"> location (city, country) </label>
-    <input id="route-location-input" type="text" name="newRouteLocation" [(ngModel)]="newRouteLocation">
-    <br>
-    <label for="route-description-input"> description </label>
-    <textarea id="route-description-input" type="text" name="newRouteDescription" [(ngModel)]="newRouteDescription"></textarea>
-    <br>
-    <label for="route-duration-input"> duration (in hours)</label>
-    <input id="route-duration-input" type="number" step=".5" name="newRouteDuration" [(ngModel)]="newRouteDuration">
-    <br>
-    <label for="route-tags-input"> tags (separated by commas)</label>
-    <input id="route-tags-input" type="text" name="newRouteTags" [(ngModel)]="newRouteTags">
-    <br>
-
-    <p>On the map, right click to add path points and double click to add pins</p>
-    <button class="inverted-button"> save new route </button>
-  </form>
-
-</div>
+  <a [routerLink]="['/newroute']"> <button class="inverted-button"> add new route </button> </a>
