@@ -15,6 +15,8 @@ export class AppComponent implements OnInit {
 
   logoutError: string;
   poly: any;
+  currentRouteId : any;
+  arrayOfPoints: Array<any>;
 
   constructor(
     private authService : AuthServiceService,
@@ -26,8 +28,11 @@ export class AppComponent implements OnInit {
     ngOnInit() {
       const myComponent = this;
       this.routeService.route.subscribe(singleRoute => {
-        this.redrawPath(singleRoute.path);
+        if (singleRoute) {
+          this.redrawPath(singleRoute.path);
+        }
       })
+
       const myMap = {
           center: new google.maps.LatLng(40.758896, -73.985130),
           zoom:15,
@@ -372,7 +377,7 @@ export class AppComponent implements OnInit {
             lng: onePosition.lng()
           });
         });
-        console.log(arrayOfPoints);
+        myComponent.arrayOfPoints = arrayOfPoints;
       }
 
 //MAKING PINS (marker + windows)
@@ -416,7 +421,11 @@ export class AppComponent implements OnInit {
 
 // SAVE PATH --------------------------------------------
 savePath(){
-  this.routeService.savePathToRoute()
+  // console.log('called', this.arrayOfPoints);
+  this.routeService.savePathToRoute(this.arrayOfPoints)
+    .then(res => {
+      console.log(res);
+    })
 
 }
 // REDRAW THE ROUTE PATH  -------------------------------

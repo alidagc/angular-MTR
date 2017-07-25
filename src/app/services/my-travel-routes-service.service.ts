@@ -3,14 +3,14 @@
 
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class MyTravelRoutesServiceService {
   baseUrl = "http://localhost:3000";
-  route: any = new Subject();
+  route: any = new BehaviorSubject(null);
 
   constructor(
     private httpResults: Http
@@ -83,7 +83,17 @@ getOneRouteApi(id){
       {withCredentials: true})
     }
 
-  savePathToRoute() {
-    
+  savePathToRoute(pathArray) {
+    let endPoint = "/api/"+ this.route.getValue()._id +"/newpath"
+    return this.httpResults.post(this.baseUrl+endPoint,
+      {
+        pathArray: pathArray,
+      },
+    {withCredentials: true}
+    )
+    .toPromise().then(result => {
+      this.route.next(result.json());
+      return result.json()
+    });
   }
-  }
+}
