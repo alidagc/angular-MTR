@@ -22,7 +22,7 @@ export class RouteDetailAndEditComponent implements OnInit {
     private myRoutesFromApi: MyTravelRoutesServiceService,
     private router : Router,
     private activatedRoute : ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.authService.checklogin()
@@ -62,7 +62,8 @@ export class RouteDetailAndEditComponent implements OnInit {
       this.oneRoute.duration
       )
       .then((editRouteForApi) =>{
-        this.router.navigate(['/myRoutes']);
+        this.router.navigate(['/'+ this.oneRoute._id]);
+        this.isShowingForm = false;
       })
   }
 

@@ -1,20 +1,21 @@
-<h1>add a new route</h1>
+<div *ngIf="isShowingForm" id="add-new-route-wrapper">
+  <h1>add a new route</h1>
 
-<form (ngSubmit)="saveNewRoute()">
-  <label for="route-name-input"> name </label>
-  <input id="route-name-input" type="text" name="newRouteName" [(ngModel)]="newRouteName">
-  <br>
-  <label for="route-location-input"> location (city, country) </label>
-  <input id="route-location-input" type="text" name="newRouteLocation" [(ngModel)]="newRouteLocation">
-  <br>
-  <label for="route-description-input"> description </label>
-  <textarea id="route-description-input" type="text" name="newRouteDescription" [(ngModel)]="newRouteDescription"></textarea>
-  <br>
-  <label for="route-duration-input"> duration (in hours)</label>
-  <input id="route-duration-input" type="number" step=".5" name="newRouteDuration" [(ngModel)]="newRouteDuration">
-  <br>
+  <form (ngSubmit)="saveNewRoute()">
+    <label for="route-name-input"> name </label>
+    <input id="route-name-input" type="text" name="newRouteName" [(ngModel)]="newRouteName">
+    <br>
+    <label for="route-location-input"> location (city, country) </label>
+    <input id="route-location-input" type="text" name="newRouteLocation" [(ngModel)]="newRouteLocation">
+    <br>
+    <label for="route-description-input"> description </label>
+    <textarea id="route-description-input" type="text" name="newRouteDescription" [(ngModel)]="newRouteDescription"></textarea>
+    <br>
+    <label for="route-duration-input"> duration (in hours)</label>
+    <input id="route-duration-input" type="number" step=".5" name="newRouteDuration" [(ngModel)]="newRouteDuration">
+    <br>
 
-  <p>On the map, right click to add path points and double click to add pins</p>
-  <button class="inverted-button"> save new route </button>
-</form>
-<a routerLink="/myRoutes"><button>go back to my routes</button></a>
+    <button class="inverted-button"> next </button>
+  </form>
+  <a routerLink="/myRoutes"><button>go back to my routes</button></a>
+</div>

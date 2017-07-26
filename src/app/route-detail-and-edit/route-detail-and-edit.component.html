@@ -7,17 +7,18 @@
   <h2>duration:</h2>
   <p>{{oneRoute.duration}} hours </p>
 
-  <!-- <p *ngIf="routesError" class= "error">
-    {{routesError}}
-  </p> -->
-
-  <button class="inverted-button edit-button" *ngIf="!isShowingForm" (click)="showEditRouteForm()"> edit route </button>
+  <button class="inverted-button edit-button" *ngIf="!isShowingForm" (click)="showEditRouteForm()"> edit info </button>
   <a routerLink="/myRoutes"><button> go back to my routes</button></a>
+
+  <div id="add-pins-wrapper">
+      <small><b>to draw a route:</b> right click to add path points.<br><b>to drop pins and add the deets:</b>double click on the place in the map</small>
+    <!-- <button class="inverted-button" (click)="saveTheEntireRoute()"> update new paths and pins </button> -->
+  </div>
 </div>
 
 
 <div *ngIf="isShowingForm">
-  <h1>edit your route</h1>
+  <h1>edit your route info</h1>
 
   <form (ngSubmit)="saveEditedRoute()">
     <label for="route-name-input"> name </label>
@@ -35,8 +36,7 @@
     <input id="route-duration-input" type="number" step=".5" name="ediRouteDuration" [(ngModel)]="oneRoute.duration">
     <br>
 
-    <p>On the map, click and drag on path points & pins to change their location. To edit pins, click on the marker.</p>
-    <button class="inverted-button save-edited-button"> save route </button>
+    <button class="inverted-button save-edited-button"> save changes </button>
     <button class="delete-route-button" (click)="deleteOneRoute(oneRoute._id)"> delete route </button>
   </form>
 

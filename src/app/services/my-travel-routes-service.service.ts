@@ -5,10 +5,11 @@ import { Http } from '@angular/http';
 import { BehaviorSubject } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class MyTravelRoutesServiceService {
-  baseUrl = "http://localhost:3000";
+  baseUrl = environment.apiBase;
   BehSub: any = new BehaviorSubject(null);
 
   constructor(
@@ -73,6 +74,8 @@ export class MyTravelRoutesServiceService {
       });
   }
 
+// PATHS -----------
+
   deleteRoute(routeId){
     let endPoint = "/api/"+ routeId +"/delete"
     return this.httpResults.delete(this.baseUrl+endPoint,
@@ -103,4 +106,10 @@ export class MyTravelRoutesServiceService {
       return result.json()
     });
   }
+
+//  PINS -----------
+
+
+
+
 }

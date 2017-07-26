@@ -18,3 +18,18 @@ h2 {
 .save-edited-button, .delete-route-button {
   width: 43%;
 }
+
+#add-pins-wrapper {
+  text-align: center;
+  width: 100%;
+  border: 2px solid #FFB157;
+  margin: 3% 0;
+  font-size: .7em;
+  padding: 1em 0;
+}
+
+#add-pins-wrapper button {
+  background-color: #FFB157;
+  border: 1px solid #FFB157;
+  margin-bottom: .5em 0;
+}

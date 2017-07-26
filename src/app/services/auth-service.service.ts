@@ -4,10 +4,12 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import { environment } from '../../environments/environment';
+
 
 @Injectable()
 export class AuthServiceService {
-
+  baseUrl = environment.apiBase;
   constructor(
     // "give me what http pulls, and put it inside our class so I can use it"
     private httpResults: Http
@@ -16,11 +18,8 @@ export class AuthServiceService {
 // POST signup
 // an argument for each "req.body" in the API route
   signup(theFirstName, theLastName, theEmail, thePassword) {
-    return this.httpResults
-    // ajax requests (which includes post) by default send back observables/ subscriptions
-    .post (
-      'http://localhost:3000/api/signup',
-
+    let endPoint = "/api/signup"
+    return this.httpResults.post(this.baseUrl+endPoint,
       // Form body information to send to the back end (req.body)
       {
         signupFirstName: theFirstName,
@@ -39,9 +38,8 @@ export class AuthServiceService {
 
 // POST login
   login(theEmail, thePassword) {
-    return this.httpResults
-      .post (
-        'http://localhost:3000/api/login',
+    let endPoint = "/api/login"
+    return this.httpResults.post(this.baseUrl+endPoint,
         // Form body information to send to the back end (req.body)
         {
           userEmail: theEmail,
@@ -57,9 +55,8 @@ export class AuthServiceService {
 
 // POST logout
 logout() {
-  return this.httpResults
-  .post (
-    'http://localhost:3000/api/logout',
+  let endPoint = "/api/logout"
+  return this.httpResults.post(this.baseUrl+endPoint,
     // No information to send to the back end (req.body)
     {},
     // Send the cookies across domains. Password need this to work.
@@ -72,9 +69,8 @@ logout() {
 
 // GET checklogin
 checklogin() {
-  return this.httpResults
-    .get (
-      'http://localhost:3000/api/checklogin',
+  let endPoint = "/api/checklogin"
+  return this.httpResults.get(this.baseUrl+endPoint,
       // Only needs two params
       {withCredentials: true}
     )

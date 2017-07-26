@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AuthServiceService } from './services/auth-service.service';
 import { MyTravelRoutesServiceService } from './services/my-travel-routes-service.service';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { DOCUMENT } from '@angular/platform-browser';
 
 declare const google: any;
 
@@ -19,12 +19,13 @@ export class AppComponent implements OnInit {
   currentRouteId : any;
   arrayOfPoints: Array<any>;
   isLoggedIn: boolean;
+  routerIsShowing: boolean = false;
 
   constructor(
     private authService : AuthServiceService,
     private routeService : MyTravelRoutesServiceService,
     private router : Router,
-    private route : ActivatedRoute
+    private activatedRoute : ActivatedRoute
   ) { }
 
     ngOnInit() {
@@ -38,7 +39,17 @@ export class AppComponent implements OnInit {
         this.isLoggedIn = false;
       })
 
+      // this.activatedRoute.params.subscribe((params: Params) => {
+      //   let routeId = params['routeId'];
+      //   console.log(routeId);
+      // });
+
       const myComponent = this;
+
+      // if (this.routeService.BehSub.getValue()) {
+      //   console.log(this.routeService.BehSub.getValue()._id);
+      // }
+
       this.routeService.BehSub.subscribe(singleRoute => {
         if (singleRoute) {
           this.redrawPath(singleRoute.path);
@@ -46,7 +57,7 @@ export class AppComponent implements OnInit {
       })
 
       const myMap = {
-          center: new google.maps.LatLng(40.758896, -73.985130),
+          center: new google.maps.LatLng(40.729589601719894, -74.00004386901855),
           zoom:15,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           styles: [
@@ -392,11 +403,16 @@ export class AppComponent implements OnInit {
         myComponent.arrayOfPoints = arrayOfPoints;
       }
 
-//MAKING PINS (marker + windows)
+//MAKING PINS -----------------------------------------
       map.addListener('dblclick', addPin);
 
       function addPin(event) {
+        if (myComponent.routeService.BehSub.getValue()) {
+          console.log(myComponent.routeService.BehSub.getValue()._id);
 
+        }
+        this.routerIsShowing = false;
+        console.log(this.routerIsShowing)
         const marker = new google.maps.Marker({
           position: event.latLng,
           map: map,
@@ -411,11 +427,12 @@ export class AppComponent implements OnInit {
           lng: marker.position.lng()
         };
         console.log(pin);
-        
+
       }
+
     } // END OF ONINIT
 
-// SAVE PATH --------------------------------------------
+// SAVE THE WHOLE PIN --------------------------------------------
   savePath(){
     // console.log('called', this.arrayOfPoints);
     this.routeService.savePathToRoute(this.arrayOfPoints)
@@ -451,6 +468,7 @@ export class AppComponent implements OnInit {
          })
          .catch(()=>{
            this.logoutError = 'Log out did not work';
+           console.log(this.logoutError)
          });
     }
  }

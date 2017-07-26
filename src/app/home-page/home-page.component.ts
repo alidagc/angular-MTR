@@ -21,7 +21,6 @@ export class HomePageComponent implements OnInit {
     this.authService.checklogin()
     .then((resultFromApi)=>{
       this.currentUser = resultFromApi;
-      this.router.navigate(['/']);
     })
     .catch((err)=>{
       this.isLoggedin = false;

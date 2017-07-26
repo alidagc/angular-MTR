@@ -1,15 +1,34 @@
 
 <div id="map-and-window-wrapper">
   <div id="content-window">
-    <router-outlet>
-    </router-outlet>
+      <router-outlet *ngIf="routerIsShowing">
+      </router-outlet>
+
+    <div  *ngIf="!routerIsShowing" class="add-pin-info-view">
+      <h2>add pin details</h2>
+      <form (ngSubmit)="saveTheWholePin()">
+        <label for="pin-name-input"> name </label>
+        <input id="pin-name-input" type="text" name="newPinName" [(ngModel)]="newPinName">
+        <br>
+        <label for="pin-deets-input"> description </label>
+        <textarea id="pin-deets-input" type="text" name="newPinDeets" [(ngModel)]="newPinDeets"></textarea>
+        <br>
+        <label for="pin-duration-input"> duration (in hours)</label>
+        <input id="pin-duration-input" type="number" step=".5" name="newPinDuration" [(ngModel)]="newPinDuration">
+        <br>
+
+        <button class="inverted-button"> next </button>
+      </form>
+
+      <button (click)="savePath()"> Save Path </button>
+      <button (click)="deletePath()"> Delete Path </button>
+    </div>
+
   </div>
 
   <div id="navigation-buttons-left">
     <a routerLink="/"><h1>wanderlist</h1></a>
     <button  *ngIf="isLoggedIn" class="inverted-button" (click)="logMeOut()"> LOG OUT </button>
-    <button (click)="savePath()"> Save Path </button>
-    <button (click)="deletePath()"> Delete Path </button>
   </div>
   <div id="gmap" #map>
   </div>

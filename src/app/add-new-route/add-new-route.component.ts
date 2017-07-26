@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-new-route.component.css']
 })
 export class AddNewRouteComponent implements OnInit {
-
+  isShowingForm: boolean = true;
   currentUser: any = {};
 
   newRouteName: string;
@@ -44,8 +44,14 @@ export class AddNewRouteComponent implements OnInit {
       this.newRouteDuration
       ) // need to add new required fields
       .subscribe((newRouteForApi) =>{
-        this.router.navigate(['/myRoutes']);
+        this.isShowingForm = false;
+        this.router.navigate(["/"+ newRouteForApi._id]);
       })
   }
+
+  // saveTheEntireRoute(){
+  //   .subscribe((newRouteForApi) =>{
+  //     this.router.navigate(['/myRoutes']);
+  // }
 
 }
