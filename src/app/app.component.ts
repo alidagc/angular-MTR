@@ -19,7 +19,9 @@ export class AppComponent implements OnInit {
   currentRouteId : any;
   arrayOfPoints: Array<any>;
   isLoggedIn: boolean;
-  routerIsShowing: boolean = false;
+  routerIsShowing: boolean = true;
+  map: any;
+  blah: string;
 
   constructor(
     private authService : AuthServiceService,
@@ -29,16 +31,8 @@ export class AppComponent implements OnInit {
   ) { }
 
     ngOnInit() {
-      this.authService.checklogin()
-      .then((resultFromApi)=>{
-        this.currentUser = resultFromApi;
-        this.router.navigate(['/']);
-        this.isLoggedIn = true;
-      })
-      .catch((err)=>{
-        this.isLoggedIn = false;
-      })
-
+  this.checkLogin();
+  this.renderMap();
       // this.activatedRoute.params.subscribe((params: Params) => {
       //   let routeId = params['routeId'];
       //   console.log(routeId);
@@ -56,7 +50,124 @@ export class AppComponent implements OnInit {
         }
       })
 
-      const myMap = {
+
+
+
+// MAKING PATHS -----------------------------------------
+      this.poly = new google.maps.Polyline({
+          strokeColor: '#FFB157',
+          strokeOpacity: 1.0,
+          strokeWeight: 3,
+          draggable: true,
+          editable: true
+        });
+        this.poly.setMap(this.map);
+
+      this.map.addListener('rightclick', addLatLng);
+      // Handles click events on a map, and adds a new point to the Polyline.
+      function addLatLng(event) {
+        const path = myComponent.poly.getPath();
+        path.push(event.latLng);
+        console.log(path, "THIS ", this);
+
+        // on save route button click
+        const arrayOfPoints = [];
+        path.b.forEach((onePosition) => {
+          arrayOfPoints.push({
+            lat: onePosition.lat(),
+            lng: onePosition.lng()
+          });
+        });
+        myComponent.arrayOfPoints = arrayOfPoints;
+          myComponent.madeUpFunction();
+      }
+
+//MAKING PINS -----------------------------------------
+      this.map.addListener('dblclick', this.addPin);
+
+    } // END OF ONINIT
+
+  addPin(event) {
+      if (this.routeService.BehSub.getValue()) {
+        console.log(this.routeService.BehSub.getValue()._id);
+
+      }
+      this.routerIsShowing = false;
+      console.log(this.routerIsShowing)
+      const marker = new google.maps.Marker({
+        position: event.latLng,
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        icon: '/assets/images/pin.svg',
+        draggable: true
+      });
+      console.log(marker)
+
+      const pin = {
+        lat: marker.position.lat(),
+        lng: marker.position.lng()
+      };
+      console.log(pin);
+      this.madeUpFunction();
+    }
+
+
+checkLogin(){
+  this.authService.checklogin()
+  .then((resultFromApi)=>{
+    this.currentUser = resultFromApi;
+    this.router.navigate(['/']);
+    this.isLoggedIn = true;
+  })
+  .catch((err)=>{
+    this.isLoggedIn = false;
+  });
+}
+
+
+
+// SAVE THE WHOLE PIN --------------------------------------------
+  savePath(){
+    // console.log('called', this.arrayOfPoints);
+    this.routeService.savePathToRoute(this.arrayOfPoints)
+      .then(res => {
+        console.log(res);
+      })
+  }
+
+// DELETE THE PATH --------------------------------------
+  deletePath(){
+    this.routeService.deletePathFromRoute()
+      .then(res => {
+        console.log(res);
+      })
+  }
+
+// REDRAW THE ROUTE PATH  -------------------------------
+   redrawPath(arrayOfPoints) {
+      let savedPath = [];
+      arrayOfPoints.forEach((onePair)=>{
+        savedPath.push(new google.maps.LatLng(onePair.lat, onePair.lng));
+      })
+      this.poly.setPath(savedPath);
+    }
+
+
+
+// lOGOUT BUTTON ---------------------------------------
+    logMeOut() {
+      this.authService.logout()
+         .then(()=>{
+           this.router.navigate(['/']);
+         })
+         .catch(()=>{
+           this.logoutError = 'Log out did not work';
+           console.log(this.logoutError)
+         });
+    }
+
+    renderMap(){
+    const myMap = {
           center: new google.maps.LatLng(40.729589601719894, -74.00004386901855),
           zoom:15,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -372,103 +483,16 @@ export class AppComponent implements OnInit {
             }
           ]
           };
-      const map = new google.maps.Map(document.getElementById("gmap"), myMap);
-      map.setOptions({disableDoubleClickZoom: true });
+          console.log(typeof (new google.maps.Map(document.getElementById("gmap"), myMap)))
+          this.map = new google.maps.Map(document.getElementById("gmap"), myMap);
+          this.map.setOptions({disableDoubleClickZoom: true });
 
-// MAKING PATHS -----------------------------------------
-      this.poly = new google.maps.Polyline({
-          strokeColor: '#FFB157',
-          strokeOpacity: 1.0,
-          strokeWeight: 3,
-          draggable: true,
-          editable: true
-        });
-        this.poly.setMap(map);
-
-      map.addListener('rightclick', addLatLng);
-      // Handles click events on a map, and adds a new point to the Polyline.
-      function addLatLng(event) {
-        const path = myComponent.poly.getPath();
-        path.push(event.latLng);
-        console.log(path, "THIS ", this);
-
-        // on save route button click
-        const arrayOfPoints = [];
-        path.b.forEach((onePosition) => {
-          arrayOfPoints.push({
-            lat: onePosition.lat(),
-            lng: onePosition.lng()
-          });
-        });
-        myComponent.arrayOfPoints = arrayOfPoints;
-      }
-
-//MAKING PINS -----------------------------------------
-      map.addListener('dblclick', addPin);
-
-      function addPin(event) {
-        if (myComponent.routeService.BehSub.getValue()) {
-          console.log(myComponent.routeService.BehSub.getValue()._id);
-
-        }
-        this.routerIsShowing = false;
-        console.log(this.routerIsShowing)
-        const marker = new google.maps.Marker({
-          position: event.latLng,
-          map: map,
-          animation: google.maps.Animation.DROP,
-          icon: '/assets/images/pin.svg',
-          draggable: true
-        });
-        console.log(marker)
-
-        const pin = {
-          lat: marker.position.lat(),
-          lng: marker.position.lng()
-        };
-        console.log(pin);
-
-      }
-
-    } // END OF ONINIT
-
-// SAVE THE WHOLE PIN --------------------------------------------
-  savePath(){
-    // console.log('called', this.arrayOfPoints);
-    this.routeService.savePathToRoute(this.arrayOfPoints)
-      .then(res => {
-        console.log(res);
-      })
-  }
-
-// DELETE THE PATH --------------------------------------
-  deletePath(){
-    this.routeService.deletePathFromRoute()
-      .then(res => {
-        console.log(res);
-      })
-  }
-
-// REDRAW THE ROUTE PATH  -------------------------------
-   redrawPath(arrayOfPoints) {
-      let savedPath = [];
-      arrayOfPoints.forEach((onePair)=>{
-        savedPath.push(new google.maps.LatLng(onePair.lat, onePair.lng));
-      })
-      this.poly.setPath(savedPath);
     }
 
+    madeUpFunction(){
+        console.log("We're doing nothing in here at all");
+        console.log("except");
 
-
-// lOGOUT BUTTON ---------------------------------------
-    logMeOut() {
-      this.authService.logout()
-         .then(()=>{
-           this.router.navigate(['/']);
-         })
-         .catch(()=>{
-           this.logoutError = 'Log out did not work';
-           console.log(this.logoutError)
-         });
+        this.blah = "blah";
     }
  }
