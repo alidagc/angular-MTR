@@ -7,11 +7,9 @@
 
   <div id="navigation-buttons-left">
     <a routerLink="/"><h1>wanderlist</h1></a>
-    <a routerLink="/myRoutes"><button class="inverted-button"> my routes </button></a>
-    <a routerLink="/newroute"><button class="inverted-button"> new route </button></a>
-    <button  class="inverted-button" (click)="logMeOut()"> LOG OUT </button>
-    <button  class="inverted-button" (click)="redrawPath()"> Draw route </button>
+    <button  *ngIf="isLoggedIn" class="inverted-button" (click)="logMeOut()"> LOG OUT </button>
     <button (click)="savePath()"> Save Path </button>
+    <button (click)="deletePath()"> Delete Path </button>
   </div>
   <div id="gmap" #map>
   </div>

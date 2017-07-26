@@ -1,5 +1,4 @@
-// your services match the routes in your API
-// In this case, we have two routes in the my routes routes in express app
+// Services to interact with express API
 
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
@@ -10,18 +9,16 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class MyTravelRoutesServiceService {
   baseUrl = "http://localhost:3000";
-  route: any = new BehaviorSubject(null);
+  BehSub: any = new BehaviorSubject(null);
 
   constructor(
     private httpResults: Http
   ) { }
 
 // Make new routes
-newRoute(theName, theLocation, theDescription, theDuration) {
-  return this.httpResults
-  .post (
-    'http://localhost:3000/api/myRoutes/new',
-    // Form body information to send to the backend
+ newRoute(theName, theLocation, theDescription, theDuration) {
+  let endPoint = "/api/myRoutes/new"
+  return this.httpResults.post(this.baseUrl+endPoint,
     {
       routeName: theName,
       routeLocation: theLocation,
@@ -33,19 +30,18 @@ newRoute(theName, theLocation, theDescription, theDuration) {
   )
   // Parse the JSON
   .map(res => res.json());
-}
+  }
 
 // Show all routes
-allRoutes() {
-  return this.httpResults
-  .get(
-    'http://localhost:3000/api/myRoutes',
-    {withCredentials: true}
-  )
-  .map(res => res.json());
-}
+  allRoutes() {
+    let endPoint = "/api/myRoutes"
+    return this.httpResults.get(this.baseUrl+endPoint,
+      {withCredentials: true}
+    )
+    .map(res => res.json());
+  }
 
-getOneRouteApi(id){
+  getOneRouteApi(id){
     let endPoint = "/api/"+id
     return this.httpResults.get(this.baseUrl+endPoint,
     {withCredentials: true}
@@ -53,7 +49,7 @@ getOneRouteApi(id){
     // make request to api, receive a magical Angular object
     //use .map to turn it into a regular json object
       .toPromise().then(result => {
-        this.route.next(result.json());
+        this.BehSub.next(result.json());
         return result.json()
       });
   }
@@ -72,7 +68,7 @@ getOneRouteApi(id){
     // make request to api, receive a magical Angular object
     //use .map to turn it into a regular json object
       .toPromise().then(result => {
-        this.route.next(result.json());
+        this.BehSub.next(result.json());
         return result.json()
       });
   }
@@ -84,7 +80,7 @@ getOneRouteApi(id){
     }
 
   savePathToRoute(pathArray) {
-    let endPoint = "/api/"+ this.route.getValue()._id +"/newpath"
+    let endPoint = "/api/"+ this.BehSub.getValue()._id +"/newpath"
     return this.httpResults.post(this.baseUrl+endPoint,
       {
         pathArray: pathArray,
@@ -92,7 +88,18 @@ getOneRouteApi(id){
     {withCredentials: true}
     )
     .toPromise().then(result => {
-      this.route.next(result.json());
+      this.BehSub.next(result.json());
+      return result.json()
+    });
+  }
+
+  deletePathFromRoute() {
+    let endPoint = "/api/"+ this.BehSub.getValue()._id +"/deletepath"
+    return this.httpResults.put(this.baseUrl+endPoint,
+    {withCredentials: true}
+    )
+    .toPromise().then(result => {
+      this.BehSub.next(result.json());
       return result.json()
     });
   }

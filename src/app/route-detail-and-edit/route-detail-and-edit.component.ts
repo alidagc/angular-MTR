@@ -31,6 +31,7 @@ export class RouteDetailAndEditComponent implements OnInit {
       })
     .catch((err)=>{
       this.isLoggedin = false;
+      this.router.navigate(['/']);
     });
 
     this.activatedRoute.params.subscribe((params) => {

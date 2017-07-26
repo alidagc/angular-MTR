@@ -13,21 +13,33 @@ declare const google: any;
 })
 export class AppComponent implements OnInit {
 
+  currentUser: any;
   logoutError: string;
   poly: any;
   currentRouteId : any;
   arrayOfPoints: Array<any>;
+  isLoggedIn: boolean;
 
   constructor(
     private authService : AuthServiceService,
+    private routeService : MyTravelRoutesServiceService,
     private router : Router,
-    private route : ActivatedRoute,
-    private routeService : MyTravelRoutesServiceService
+    private route : ActivatedRoute
   ) { }
 
     ngOnInit() {
+      this.authService.checklogin()
+      .then((resultFromApi)=>{
+        this.currentUser = resultFromApi;
+        this.router.navigate(['/']);
+        this.isLoggedIn = true;
+      })
+      .catch((err)=>{
+        this.isLoggedIn = false;
+      })
+
       const myComponent = this;
-      this.routeService.route.subscribe(singleRoute => {
+      this.routeService.BehSub.subscribe(singleRoute => {
         if (singleRoute) {
           this.redrawPath(singleRoute.path);
         }
@@ -398,50 +410,34 @@ export class AppComponent implements OnInit {
           lat: marker.position.lat(),
           lng: marker.position.lng()
         };
-
         console.log(pin);
-
-        // const infowindow = new google.maps.InfoWindow({
-        //   content: '<app-add-new-route></app-add-new-route>'
-        // });
-        //
-        // infowindow.open(map, marker);
-        //
-        // marker.addListener('click', function() {
-        //   infowindow.open(map, marker);
-        //   // myComponent.authService.addMarker()
-        // });
+        
       }
-
-
-      // map.addListener('click', redrawPath);
-
-
     } // END OF ONINIT
 
 // SAVE PATH --------------------------------------------
-savePath(){
-  // console.log('called', this.arrayOfPoints);
-  this.routeService.savePathToRoute(this.arrayOfPoints)
-    .then(res => {
-      console.log(res);
-    })
+  savePath(){
+    // console.log('called', this.arrayOfPoints);
+    this.routeService.savePathToRoute(this.arrayOfPoints)
+      .then(res => {
+        console.log(res);
+      })
+  }
 
-}
+// DELETE THE PATH --------------------------------------
+  deletePath(){
+    this.routeService.deletePathFromRoute()
+      .then(res => {
+        console.log(res);
+      })
+  }
+
 // REDRAW THE ROUTE PATH  -------------------------------
    redrawPath(arrayOfPoints) {
       let savedPath = [];
-
-      // const samplePolyArray = [
-      //   {lat: 40.75161349552274, lng: -73.97403717041016},
-      //   {lat: 40.75473441810165, lng: -73.97167682647705},
-      //   {lat: 40.750605666315856, lng: -73.9719986915589}
-      // ]
-
       arrayOfPoints.forEach((onePair)=>{
         savedPath.push(new google.maps.LatLng(onePair.lat, onePair.lng));
       })
-
       this.poly.setPath(savedPath);
     }
 
@@ -451,7 +447,7 @@ savePath(){
     logMeOut() {
       this.authService.logout()
          .then(()=>{
-           this.router.navigate(['']);
+           this.router.navigate(['/']);
          })
          .catch(()=>{
            this.logoutError = 'Log out did not work';

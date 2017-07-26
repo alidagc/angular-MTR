@@ -9,10 +9,11 @@
 #landing-page h1 {
   font-size: 4em;
   line-height: 1;
-  margin: .9em 0 .2em 0;
+  margin: 10% 0 5% 3%;
 }
 #landing-page button, #welcome-user button {
-  width: 80%;
+  margin-left: 4%;
+  width: 65%;
   line-height: 1.5;
 }
 
