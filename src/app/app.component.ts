@@ -13,13 +13,25 @@ declare const google: any;
 })
 export class AppComponent implements OnInit {
 
+// FOR AUTH
   currentUser: any;
   logoutError: string;
-  poly: any;
-  currentRouteId : any;
-  arrayOfPoints: Array<any>;
+
+// FOR SHOWING AND HIDING
   isLoggedIn: boolean;
   routerIsShowing: boolean = false;
+
+// FOR PATH
+  poly: any;
+  arrayOfPoints: Array<any>;
+
+// TO SAVE THE PIN
+  theRouteId: any;
+  newPinName: any;
+  newPinDeets: any;
+  newPinDuration: any;
+  pinLat: any;
+  pinLng: any;
 
   constructor(
     private authService : AuthServiceService,
@@ -39,17 +51,9 @@ export class AppComponent implements OnInit {
         this.isLoggedIn = false;
       })
 
-      // this.activatedRoute.params.subscribe((params: Params) => {
-      //   let routeId = params['routeId'];
-      //   console.log(routeId);
-      // });
-
       const myComponent = this;
 
-      // if (this.routeService.BehSub.getValue()) {
-      //   console.log(this.routeService.BehSub.getValue()._id);
-      // }
-
+      // Renders the path of the current route
       this.routeService.BehSub.subscribe(singleRoute => {
         if (singleRoute) {
           this.redrawPath(singleRoute.path);
@@ -392,7 +396,6 @@ export class AppComponent implements OnInit {
         path.push(event.latLng);
         console.log(path, "THIS ", this);
 
-        // on save route button click
         const arrayOfPoints = [];
         path.b.forEach((onePosition) => {
           arrayOfPoints.push({
@@ -407,12 +410,11 @@ export class AppComponent implements OnInit {
       map.addListener('dblclick', addPin);
 
       function addPin(event) {
+        // gets the id of the route that is being observed
         if (myComponent.routeService.BehSub.getValue()) {
-          console.log(myComponent.routeService.BehSub.getValue()._id);
-
+          myComponent.theRouteId = (myComponent.routeService.BehSub.getValue()._id);
+          console.log(myComponent.theRouteId);
         }
-        this.routerIsShowing = false;
-        console.log(this.routerIsShowing)
         const marker = new google.maps.Marker({
           position: event.latLng,
           map: map,
@@ -422,17 +424,38 @@ export class AppComponent implements OnInit {
         });
         console.log(marker)
 
-        const pin = {
-          lat: marker.position.lat(),
-          lng: marker.position.lng()
+        myComponent.pinLat = marker.position.lat();
+        myComponent.pinLng = marker.position.lng();
+        console.log(myComponent.pinLat)
+        console.log(myComponent.pinLng)
         };
-        console.log(pin);
+        // const pin = {
+        //   lat: marker.position.lat(),
+        //   lng: marker.position.lng()
+        // };
 
-      }
 
-    } // END OF ONINIT
+  } // END OF ONINIT --------------------------------------------------
 
-// SAVE THE WHOLE PIN --------------------------------------------
+
+// SAVE THE WHOLE NEW PIN ---------------------------------------------
+saveThePinAndPath () {
+  this.routeService.newPin(
+    this.theRouteId,
+    this.newPinName,
+    this.newPinDeets,
+    this.newPinDuration,
+    this.pinLat,
+    this.pinLng
+  )
+  .subscribe((newRouteForApi) =>{
+    this.router.navigate(["/"+ this.theRouteId]);
+  })
+  // this.savePath();
+}
+
+
+// SAVE THE MARKER --------------------------------------------
   savePath(){
     // console.log('called', this.arrayOfPoints);
     this.routeService.savePathToRoute(this.arrayOfPoints)
@@ -471,4 +494,6 @@ export class AppComponent implements OnInit {
            console.log(this.logoutError)
          });
     }
- }
+
+
+  } // END OF export class AppComponent implements OnInit

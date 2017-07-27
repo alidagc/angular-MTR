@@ -108,6 +108,23 @@ export class MyTravelRoutesServiceService {
   }
 
 //  PINS -----------
+  newPin(theRouteId, thePinName, thePinDeets, thePinDuration, thePinLat, thePinLng) {
+   let endPoint = "/api/pins/newPin"
+   return this.httpResults.post(this.baseUrl+endPoint,
+     {
+       pinRouteId: theRouteId,
+       pinName: thePinName,
+       pinDeets: thePinDeets,
+       pinDuration: thePinDuration,
+       pinLat: thePinLat,
+       pinLng: thePinLng
+     },
+     // Send the cookies across domains
+     {withCredentials: true}
+   )
+   // Parse the JSON
+   .map(res => res.json());
+  }
 
 
 

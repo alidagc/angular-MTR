@@ -1,29 +1,35 @@
 
 <div id="map-and-window-wrapper">
   <div id="content-window">
-      <router-outlet *ngIf="routerIsShowing">
+      <router-outlet>
       </router-outlet>
+  </div>
 
-    <div  *ngIf="!routerIsShowing" class="add-pin-info-view">
-      <h2>add pin details</h2>
-      <form (ngSubmit)="saveTheWholePin()">
-        <label for="pin-name-input"> name </label>
-        <input id="pin-name-input" type="text" name="newPinName" [(ngModel)]="newPinName">
-        <br>
-        <label for="pin-deets-input"> description </label>
-        <textarea id="pin-deets-input" type="text" name="newPinDeets" [(ngModel)]="newPinDeets"></textarea>
-        <br>
-        <label for="pin-duration-input"> duration (in hours)</label>
-        <input id="pin-duration-input" type="number" step=".5" name="newPinDuration" [(ngModel)]="newPinDuration">
-        <br>
+  <div id="add-pin-info-modal">
+    <h1>add pin details</h1>
+    <form (ngSubmit)="saveThePinAndPath()">
+      <label for="pin-name-input"> name </label>
+      <input id="pin-name-input" type="text" name="newPinName" [(ngModel)]="newPinName">
+      <br>
+      <label for="pin-deets-input"> deets </label>
+      <textarea id="pin-deets-input" type="text" name="newPinDeets" [(ngModel)]="newPinDeets"></textarea>
+      <br>
+      <label for="pin-duration-input"> duration (in hours)</label>
+      <input id="pin-duration-input" type="number" step=".5" name="newPinDuration" [(ngModel)]="newPinDuration">
+      <br>
+      <button class="inverted-button"> save pin </button>
+    </form>
 
-        <button class="inverted-button"> next </button>
-      </form>
+    <button (click)="savePath()"> Save Path </button>
+    <button (click)="deletePath()"> Delete Path </button>
+  </div>
 
-      <button (click)="savePath()"> Save Path </button>
-      <button (click)="deletePath()"> Delete Path </button>
-    </div>
-
+  <div id="view-pin-info-modal">
+    <h1>add pin details</h1>
+      <input id="pin-name-input" type="text" name="newPinName" [(ngModel)]="newPinName">
+      <textarea id="pin-deets-input" type="text" name="newPinDeets" [(ngModel)]="newPinDeets"></textarea>
+      <input id="pin-duration-input" type="number" step=".5" name="newPinDuration" [(ngModel)]="newPinDuration">
+    <button (click)="closePinModal()"> close </button>
   </div>
 
   <div id="navigation-buttons-left">

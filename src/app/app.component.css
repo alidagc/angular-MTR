@@ -53,3 +53,23 @@
 #navigation-buttons-left a {
   text-decoration: none;
 }
+
+#add-pin-info-modal, #view-pin-info-modal {
+  border-radius: 20px;
+  background-color: #FFB157;
+  width:25%;
+  padding: 2%;
+  color: white;
+  position: absolute;
+  z-index: 9999;
+  top: 20%;
+  right: 30%;
+}
+
+#add-pin-info-modal h1 {
+  color: white;
+}
+
+#view-pin-info-modal {
+  right: 50%;
+}
