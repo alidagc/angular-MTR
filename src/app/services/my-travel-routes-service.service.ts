@@ -126,7 +126,12 @@ export class MyTravelRoutesServiceService {
    .map(res => res.json());
   }
 
-
-
-
+// get one pin ------------------------------------
+getOnePin(pinId) {
+ let endPoint = "/api/pins/"+ pinId
+ return this.httpResults.get(this.baseUrl+endPoint,
+   {withCredentials: true}
+   )
+   .map(res => res.json());
+}
 }

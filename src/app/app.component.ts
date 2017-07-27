@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, NgZone } from '@angular/core';
 import { AuthServiceService } from './services/auth-service.service';
 import { MyTravelRoutesServiceService } from './services/my-travel-routes-service.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
@@ -19,7 +19,8 @@ export class AppComponent implements OnInit {
 
 // FOR SHOWING AND HIDING
   isLoggedIn: boolean;
-  routerIsShowing: boolean = false;
+  pinFormShowing: boolean = false;
+  pinWindowShowing: boolean = false;
 
 // FOR PATH
   poly: any;
@@ -32,12 +33,16 @@ export class AppComponent implements OnInit {
   newPinDuration: any;
   pinLat: any;
   pinLng: any;
+  newPinID: any;
+
+  currentPin:any;
 
   constructor(
     private authService : AuthServiceService,
     private routeService : MyTravelRoutesServiceService,
     private router : Router,
-    private activatedRoute : ActivatedRoute
+    private activatedRoute : ActivatedRoute,
+    private autoZone: NgZone
   ) { }
 
     ngOnInit() {
@@ -59,6 +64,10 @@ export class AppComponent implements OnInit {
           this.redrawPath(singleRoute.path);
         }
       })
+
+      // Renders the pins of the current route {
+
+      // }
 
       const myMap = {
           center: new google.maps.LatLng(40.729589601719894, -74.00004386901855),
@@ -407,13 +416,18 @@ export class AppComponent implements OnInit {
       }
 
 //MAKING PINS -----------------------------------------
-      map.addListener('dblclick', addPin);
+      map.addListener('dblclick', (ev) => {
+          addPin(ev);
+          this.autoZone.run(() => {
+            setTimeout(() =>{ this.openPinForm(); }, 800);
+          })
+      });
 
       function addPin(event) {
         // gets the id of the route that is being observed
         if (myComponent.routeService.BehSub.getValue()) {
           myComponent.theRouteId = (myComponent.routeService.BehSub.getValue()._id);
-          console.log(myComponent.theRouteId);
+          // console.log(myComponent.theRouteId);
         }
         const marker = new google.maps.Marker({
           position: event.latLng,
@@ -422,38 +436,44 @@ export class AppComponent implements OnInit {
           icon: '/assets/images/pin.svg',
           draggable: true
         });
-        console.log(marker)
 
+        marker.addListener('click', (ev) => {
+          map.setZoom(17);
+          map.setCenter(marker.getPosition());
+          myComponent.autoZone.run(() => {
+            setTimeout(() =>{ myComponent.openPinModal(myComponent.newPinID); }, 800);
+            console.log(myComponent.newPinID);
+          })
+        });
+
+        // console.log(marker)
         myComponent.pinLat = marker.position.lat();
         myComponent.pinLng = marker.position.lng();
-        console.log(myComponent.pinLat)
-        console.log(myComponent.pinLng)
         };
-        // const pin = {
-        //   lat: marker.position.lat(),
-        //   lng: marker.position.lng()
-        // };
 
-
+        // map.addListener('click', this.redrawPath);
   } // END OF ONINIT --------------------------------------------------
 
 
-// SAVE THE WHOLE NEW PIN ---------------------------------------------
-saveThePinAndPath () {
-  this.routeService.newPin(
-    this.theRouteId,
-    this.newPinName,
-    this.newPinDeets,
-    this.newPinDuration,
-    this.pinLat,
-    this.pinLng
-  )
-  .subscribe((newRouteForApi) =>{
-    this.router.navigate(["/"+ this.theRouteId]);
-  })
-  // this.savePath();
+// TO OPEN AND CLOSE MODALS
+openPinForm (){
+  this.pinFormShowing = true;
+}
+closePinForm(){
+  this.pinFormShowing = false;
 }
 
+openPinModal(id){
+  this.pinWindowShowing = true;
+  this.routeService.getOnePin(id)
+    .subscribe(res => {
+      this.currentPin = res;
+    })
+}
+closePinModal(){
+  this.pinWindowShowing = false;
+  this.currentPin = "";
+}
 
 // SAVE THE MARKER --------------------------------------------
   savePath(){
@@ -481,7 +501,29 @@ saveThePinAndPath () {
       this.poly.setPath(savedPath);
     }
 
-
+  // SAVE THE WHOLE NEW PIN ---------------------------------------------
+  saveThePinAndPath () {
+    this.routeService.newPin(
+      this.theRouteId,
+      this.newPinName,
+      this.newPinDeets,
+      this.newPinDuration,
+      this.pinLat,
+      this.pinLng
+    )
+    .subscribe(newPinFromApi => {
+      this.newPinID = newPinFromApi._id;
+      console.log(this.newPinID);
+      this.closePinForm();
+      this.savePath();
+      this.router.navigate(["/"+ this.theRouteId]);
+      this.newPinName = "";
+      this.newPinDeets = "";
+      this.newPinDuration = "";
+      this.pinLat = "";
+      this.pinLng = "";
+    })
+  }
 
 // lOGOUT BUTTON ---------------------------------------
     logMeOut() {

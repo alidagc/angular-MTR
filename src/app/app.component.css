@@ -54,7 +54,7 @@
   text-decoration: none;
 }
 
-#add-pin-info-modal, #view-pin-info-modal {
+#add-pin-info-modal {
   border-radius: 20px;
   background-color: #FFB157;
   width:25%;
@@ -66,10 +66,40 @@
   right: 30%;
 }
 
-#add-pin-info-modal h1 {
+#add-pin-info-modal h1,
+#view-pin-info-modal h1,
+#view-pin-info-modal h2 {
   color: white;
 }
 
+#view-pin-info-modal h2 {
+  font-size: 1.2em;
+  display: inline;
+}
+
+#view-pin-info-modal h1 {
+  line-height: 1.1em;
+}
+
+#view-pin-info-modal p{
+  display: inline;
+}
+
 #view-pin-info-modal {
-  right: 50%;
+  border-radius: 20px;
+  background-color: #FFB157;
+  width:25%;
+  padding: 2%;
+  color: white;
+  position: absolute;
+  z-index: 9999;
+  top: 15%;
+  left: 40%;
+}
+
+.close-button {
+  background-color: white;
+  border: 1px solid white;
+  color: #FFB157;
+  float: right;
 }

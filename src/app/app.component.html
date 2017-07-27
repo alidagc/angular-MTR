@@ -5,7 +5,8 @@
       </router-outlet>
   </div>
 
-  <div id="add-pin-info-modal">
+  <div *ngIf="pinFormShowing" id="add-pin-info-modal">
+    <button class="close-button" (click)="closePinForm()">x</button>
     <h1>add pin details</h1>
     <form (ngSubmit)="saveThePinAndPath()">
       <label for="pin-name-input"> name </label>
@@ -19,17 +20,18 @@
       <br>
       <button class="inverted-button"> save pin </button>
     </form>
-
-    <button (click)="savePath()"> Save Path </button>
-    <button (click)="deletePath()"> Delete Path </button>
+    <button (click)="deletePath()"> Redraw Path </button>
   </div>
 
-  <div id="view-pin-info-modal">
-    <h1>add pin details</h1>
-      <input id="pin-name-input" type="text" name="newPinName" [(ngModel)]="newPinName">
-      <textarea id="pin-deets-input" type="text" name="newPinDeets" [(ngModel)]="newPinDeets"></textarea>
-      <input id="pin-duration-input" type="number" step=".5" name="newPinDuration" [(ngModel)]="newPinDuration">
-    <button (click)="closePinModal()"> close </button>
+  <div *ngIf="pinWindowShowing" id="view-pin-info-modal">
+    <button class="close-button"(click)="closePinModal()"> x </button>
+    <h1>{{currentPin.pinName}}</h1>
+    <h2>the deets:</h2>
+    <p>{{currentPin.deets}}</p>
+    <br>
+    <h2>duration:</h2>
+    <p>{{currentPin.duration}} hours</p>
+
   </div>
 
   <div id="navigation-buttons-left">
