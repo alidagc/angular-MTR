@@ -18,13 +18,14 @@ export class AppComponent implements OnInit {
   logoutError: string;
 
 // FOR SHOWING AND HIDING
-  isLoggedIn: boolean;
+  isLoggedIn: boolean = true;
   pinFormShowing: boolean = false;
   pinWindowShowing: boolean = false;
 
 // FOR PATH
   poly: any;
   arrayOfPoints: Array<any>;
+  map: any;
 
 // TO SAVE THE PIN
   theRouteId: any;
@@ -35,7 +36,8 @@ export class AppComponent implements OnInit {
   pinLng: any;
   newPinID: any;
 
-  currentPin:any;
+  currentPin:any = {};
+  currentMarker: any;
 
 // TO SHOW THE PINS:
   allThePins: Array<any>;
@@ -53,21 +55,32 @@ export class AppComponent implements OnInit {
       this.authService.checklogin()
       .then((resultFromApi)=>{
         this.currentUser = resultFromApi;
-        this.router.navigate(['/']);
-        this.isLoggedIn = true;
       })
       .catch((err)=>{
         this.isLoggedIn = false;
+        // this.router.navigate(['/']);
       })
 
       const myComponent = this;
 
-      // // Renders the path of the current route
-      // this.routeService.BehSub.subscribe(singleRoute => {
-      //   if (singleRoute) {
-      //     this.redrawPath(singleRoute.path);
-      //   }
-      // })
+      // Renders the path of the current route
+      this.routeService.BehSub.subscribe(singleRoute => {
+        if (singleRoute) {
+          // need this because sometimes the value is undefined
+          console.log('HMMMM', this.routeService.BehSub.getValue())
+          if (this.routeService.BehSub.getValue()) {
+            this.theRouteId = (this.routeService.BehSub.getValue()._id);
+            this.populatePinArray();
+          }
+          console.log('pre draw', this.theRouteId);
+          this.redrawPath(singleRoute.path);
+          console.log('post draw', this.theRouteId);
+
+          // if (myComponent.routeService.BehSub.getValue()) {
+          // }
+        }
+      })
+
 
       const myMap = {
           center: new google.maps.LatLng(40.729589601719894, -74.00004386901855),
@@ -391,6 +404,7 @@ export class AppComponent implements OnInit {
           ]
           };
       const map = new google.maps.Map(document.getElementById("gmap"), myMap);
+      this.map = map;
       map.setOptions({disableDoubleClickZoom: true });
 
 // MAKING PATHS -----------------------------------------
@@ -446,11 +460,11 @@ export class AppComponent implements OnInit {
           map.setZoom(17);
           map.setCenter(marker.getPosition());
           myComponent.autoZone.run(() => {
-            setTimeout(() =>{ myComponent.openPinModal(myComponent.newPinID); }, 800);
-            console.log(myComponent.newPinID);
+            setTimeout(() =>{ myComponent.openPinModal(marker.pinID); }, 800);
+            // console.log(myComponent.newPinID);
           })
         });
-
+        myComponent.currentMarker = marker
         // console.log(marker)
         myComponent.pinLat = marker.position.lat();
         myComponent.pinLng = marker.position.lng();
@@ -473,11 +487,11 @@ openPinModal(id){
   this.routeService.getOnePin(id)
     .subscribe(res => {
       this.currentPin = res;
-    })
+    });
 }
 closePinModal(){
   this.pinWindowShowing = false;
-  this.currentPin = "";
+  this.currentPin = {};
 }
 
 // SAVE THE PATH --------------------------------------------
@@ -508,6 +522,7 @@ closePinModal(){
 
   // SAVE THE WHOLE NEW PIN ---------------------------------------------
   saveThePinAndPath () {
+    console.log('welp', this.theRouteId)
     this.routeService.newPin(
       this.theRouteId,
       this.newPinName,
@@ -517,7 +532,7 @@ closePinModal(){
       this.pinLng
     )
     .subscribe(newPinFromApi => {
-      this.newPinID = newPinFromApi._id;
+      this.currentMarker.pinID = newPinFromApi._id;
       console.log(this.newPinID);
       this.closePinForm();
       this.savePath();
@@ -537,22 +552,34 @@ populatePinArray(){
   this.routeService.getAllPins(this.theRouteId)
     .then((res)=>{
       this.allThePins = res
+      this.dropAllPins();
     })
 }
 
-addMarker(lat, lng){
-  var marker2 = new google.maps.Marker({
+addMarker(lat, lng, pinID){
+  var marker = new google.maps.Marker({
     position : new google.maps.LatLng(lat,lng),
     map: this.map,
+    icon: '/assets/images/pin.svg',
     animation: google.maps.Animation.DROP
+  });
+
+  marker.pinID = pinID;
+
+  marker.addListener('click', (ev) => {
+    this.map.setZoom(17);
+    this.map.setCenter(marker.getPosition());
+    this.autoZone.run(() => {
+      setTimeout(() =>{ this.openPinModal(marker.pinID); }, 800);
+      // console.log(myComponent.newPinID);
+    })
   });
 }
 
 dropAllPins() {
-  this.populatePinArray();
   this.allThePins.forEach((onePinObject, index)=>{
-    setTimeout(function() {
-      this.addMarker(onePinObject.lat, onePinObject.lat);
+    setTimeout(() => {
+      this.addMarker(onePinObject.lat, onePinObject.lng, onePinObject._id);
     }, index * 200);
   })
 }
@@ -565,6 +592,10 @@ dropAllPins() {
       this.authService.logout()
          .then(()=>{
            this.router.navigate(['/']);
+           this.autoZone.run(() => {
+             this.isLoggedIn = false;
+           })
+
          })
          .catch(()=>{
            this.logoutError = 'Log out did not work';

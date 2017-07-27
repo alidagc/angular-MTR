@@ -63,6 +63,7 @@
   z-index: 9999;
   top: 20%;
   right: 30%;
+  animation: fadein .5s;
 }
 
 #add-pin-info-modal h1,
@@ -74,6 +75,7 @@
 #view-pin-info-modal h2 {
   font-size: 1.2em;
   display: inline;
+  margin: .5em 0;
 }
 
 #view-pin-info-modal h1 {
@@ -82,18 +84,26 @@
 
 #view-pin-info-modal p{
   display: inline;
+  margin: .5em 0;
 }
 
 #view-pin-info-modal {
   border-radius: 20px;
   background-color: #FFB157;
   width:25%;
+  height: 18%;
   padding: 2%;
   color: white;
   position: absolute;
   z-index: 9999;
   top: 15%;
   left: 40%;
+  animation: fadein .5s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
 .close-button {

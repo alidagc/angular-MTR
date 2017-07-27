@@ -26,8 +26,10 @@
   <div *ngIf="pinWindowShowing" id="view-pin-info-modal">
     <button class="close-button"(click)="closePinModal()"> x </button>
     <h1>{{currentPin.pinName}}</h1>
+    <br>
     <h2>the deets:</h2>
     <p>{{currentPin.deets}}</p>
+    <br>
     <br>
     <h2>duration:</h2>
     <p>{{currentPin.duration}} hours</p>
@@ -38,6 +40,7 @@
     <a routerLink="/"><h1>wanderlist</h1></a>
     <button  *ngIf="isLoggedIn" class="inverted-button" (click)="logMeOut()"> LOG OUT </button>
   </div>
+
   <div id="gmap" #map>
   </div>
 </div>

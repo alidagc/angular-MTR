@@ -50,7 +50,7 @@ export class MyTravelRoutesServiceService {
     // make request to api, receive a magical Angular object
     //use .map to turn it into a regular json object
       .toPromise().then(result => {
-        this.BehSub.next(result.json());
+        setTimeout(() => this.BehSub.next(result.json()), 50);
         return result.json()
       });
   }
@@ -69,7 +69,7 @@ export class MyTravelRoutesServiceService {
     // make request to api, receive a magical Angular object
     //use .map to turn it into a regular json object
       .toPromise().then(result => {
-        this.BehSub.next(result.json());
+        // this.BehSub.next(result.json());
         return result.json()
       });
   }
@@ -90,7 +90,7 @@ export class MyTravelRoutesServiceService {
     {withCredentials: true}
     )
     .toPromise().then(result => {
-      this.BehSub.next(result.json());
+      // this.BehSub.next(result.json());
       return result.json()
     });
   }
@@ -101,7 +101,7 @@ export class MyTravelRoutesServiceService {
     {withCredentials: true}
     )
     .toPromise().then(result => {
-      this.BehSub.next(result.json());
+      // this.BehSub.next(result.json());
       return result.json()
     });
   }
@@ -141,7 +141,7 @@ export class MyTravelRoutesServiceService {
       {withCredentials: true}
     )
     .toPromise().then(result => {
-      this.BehSub.next(result.json());
+      // this.BehSub.next(result.json());
       return result.json();
     // .map(res => res.json());
     });

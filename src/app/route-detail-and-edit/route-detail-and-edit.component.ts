@@ -25,6 +25,7 @@ export class RouteDetailAndEditComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log('route details init')
     this.authService.checklogin()
     .then((resultFromApi)=>{
       this.currentUser = resultFromApi;
@@ -37,15 +38,17 @@ export class RouteDetailAndEditComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.getOneRoute(params.id);
     })
-}
+} // END OF ON INIT
 
   showEditRouteForm(){
     this.isShowingForm = true;
   }
 
   getOneRoute(id){
-    this.myRoutesFromApi.getOneRouteApi(id)
+    console.log('route ajax start')
+    var x = this.myRoutesFromApi.getOneRouteApi(id)
       .then((routebyId)=>{
+        console.log('route ajax succcess', routebyId)
         this.oneRoute = routebyId;
       })
      .catch(() => {
