@@ -74,14 +74,13 @@ export class MyTravelRoutesServiceService {
       });
   }
 
-// PATHS -----------
-
   deleteRoute(routeId){
     let endPoint = "/api/"+ routeId +"/delete"
     return this.httpResults.delete(this.baseUrl+endPoint,
       {withCredentials: true})
     }
 
+// PATHS -----------
   savePathToRoute(pathArray) {
     let endPoint = "/api/"+ this.BehSub.getValue()._id +"/newpath"
     return this.httpResults.post(this.baseUrl+endPoint,
@@ -127,11 +126,24 @@ export class MyTravelRoutesServiceService {
   }
 
 // get one pin ------------------------------------
-getOnePin(pinId) {
- let endPoint = "/api/pins/"+ pinId
- return this.httpResults.get(this.baseUrl+endPoint,
-   {withCredentials: true}
-   )
-   .map(res => res.json());
-}
+  getOnePin(pinId) {
+   let endPoint = "/api/pins/"+ pinId
+   return this.httpResults.get(this.baseUrl+endPoint,
+     {withCredentials: true}
+     )
+     .map(res => res.json());
+  }
+
+  // get all pins ----------------------------------
+  getAllPins(routeId) {
+    let endPoint = "/api/allpins/" + routeId
+    return this.httpResults.get(this.baseUrl+endPoint,
+      {withCredentials: true}
+    )
+    .toPromise().then(result => {
+      this.BehSub.next(result.json());
+      return result.json();
+    // .map(res => res.json());
+    });
+  }
 }

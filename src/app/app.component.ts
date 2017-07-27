@@ -37,6 +37,10 @@ export class AppComponent implements OnInit {
 
   currentPin:any;
 
+// TO SHOW THE PINS:
+  allThePins: Array<any>;
+
+
   constructor(
     private authService : AuthServiceService,
     private routeService : MyTravelRoutesServiceService,
@@ -58,21 +62,22 @@ export class AppComponent implements OnInit {
 
       const myComponent = this;
 
-      // Renders the path of the current route
-      this.routeService.BehSub.subscribe(singleRoute => {
-        if (singleRoute) {
-          this.redrawPath(singleRoute.path);
-        }
-      })
-
-      // Renders the pins of the current route {
-
-      // }
+      // // Renders the path of the current route
+      // this.routeService.BehSub.subscribe(singleRoute => {
+      //   if (singleRoute) {
+      //     this.redrawPath(singleRoute.path);
+      //   }
+      // })
 
       const myMap = {
           center: new google.maps.LatLng(40.729589601719894, -74.00004386901855),
           zoom:15,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
+          mapTypeControl: true,
+          mapTypeControlOptions: {
+              style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+            position: google.maps.ControlPosition.RIGHT_BOTTOM
+          },
           styles: [
             {
                 "featureType": "administrative",
@@ -475,7 +480,7 @@ closePinModal(){
   this.currentPin = "";
 }
 
-// SAVE THE MARKER --------------------------------------------
+// SAVE THE PATH --------------------------------------------
   savePath(){
     // console.log('called', this.arrayOfPoints);
     this.routeService.savePathToRoute(this.arrayOfPoints)
@@ -524,6 +529,36 @@ closePinModal(){
       this.pinLng = "";
     })
   }
+
+// REDROP ALL THE PINS --------------------------------
+
+// Using service to bring in the array of pins:
+populatePinArray(){
+  this.routeService.getAllPins(this.theRouteId)
+    .then((res)=>{
+      this.allThePins = res
+    })
+}
+
+addMarker(lat, lng){
+  var marker2 = new google.maps.Marker({
+    position : new google.maps.LatLng(lat,lng),
+    map: this.map,
+    animation: google.maps.Animation.DROP
+  });
+}
+
+dropAllPins() {
+  this.populatePinArray();
+  this.allThePins.forEach((onePinObject, index)=>{
+    setTimeout(function() {
+      this.addMarker(onePinObject.lat, onePinObject.lat);
+    }, index * 200);
+  })
+}
+
+// google.maps.event.addDomListener(window, "load", intialize);
+
 
 // lOGOUT BUTTON ---------------------------------------
     logMeOut() {
