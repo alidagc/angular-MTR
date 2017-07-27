@@ -26,10 +26,8 @@ export class MyTravelRoutesServiceService {
       routeDescription: theDescription,
       routeDuration: theDuration
     },
-    // Send the cookies across domains
     {withCredentials: true}
   )
-  // Parse the JSON
   .map(res => res.json());
   }
 
@@ -66,10 +64,7 @@ export class MyTravelRoutesServiceService {
       },
     {withCredentials: true}
     )
-    // make request to api, receive a magical Angular object
-    //use .map to turn it into a regular json object
       .toPromise().then(result => {
-        // this.BehSub.next(result.json());
         return result.json()
       });
   }
@@ -90,7 +85,6 @@ export class MyTravelRoutesServiceService {
     {withCredentials: true}
     )
     .toPromise().then(result => {
-      // this.BehSub.next(result.json());
       return result.json()
     });
   }
@@ -101,7 +95,6 @@ export class MyTravelRoutesServiceService {
     {withCredentials: true}
     )
     .toPromise().then(result => {
-      // this.BehSub.next(result.json());
       return result.json()
     });
   }
@@ -118,10 +111,8 @@ export class MyTravelRoutesServiceService {
        pinLat: thePinLat,
        pinLng: thePinLng
      },
-     // Send the cookies across domains
      {withCredentials: true}
    )
-   // Parse the JSON
    .map(res => res.json());
   }
 
@@ -141,9 +132,7 @@ export class MyTravelRoutesServiceService {
       {withCredentials: true}
     )
     .toPromise().then(result => {
-      // this.BehSub.next(result.json());
       return result.json();
-    // .map(res => res.json());
     });
   }
 }

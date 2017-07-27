@@ -41,6 +41,7 @@ export class AppComponent implements OnInit {
 
 // TO SHOW THE PINS:
   allThePins: Array<any>;
+  arrayOfDrawnPins: Array<any> = [];
 
 
   constructor(
@@ -73,14 +74,15 @@ export class AppComponent implements OnInit {
             this.populatePinArray();
           }
           console.log('pre draw', this.theRouteId);
-          this.redrawPath(singleRoute.path);
+          if (singleRoute.path) {
+            this.redrawPath(singleRoute.path);
+          }
           console.log('post draw', this.theRouteId);
 
           // if (myComponent.routeService.BehSub.getValue()) {
           // }
         }
       })
-
 
       const myMap = {
           center: new google.maps.LatLng(40.729589601719894, -74.00004386901855),
@@ -457,8 +459,9 @@ export class AppComponent implements OnInit {
         });
 
         marker.addListener('click', (ev) => {
-          map.setZoom(17);
-          map.setCenter(marker.getPosition());
+            map.setZoom(17);
+            map.setCenter(marker.getPosition());
+
           myComponent.autoZone.run(() => {
             setTimeout(() =>{ myComponent.openPinModal(marker.pinID); }, 800);
             // console.log(myComponent.newPinID);
@@ -574,6 +577,9 @@ addMarker(lat, lng, pinID){
       // console.log(myComponent.newPinID);
     })
   });
+
+  this.arrayOfDrawnPins.push(marker)
+  console.log(this.arrayOfDrawnPins)
 }
 
 dropAllPins() {
@@ -584,8 +590,9 @@ dropAllPins() {
   })
 }
 
-// google.maps.event.addDomListener(window, "load", intialize);
-
+deleteMarkers() {
+  this.arrayOfDrawnPins= [];
+}
 
 // lOGOUT BUTTON ---------------------------------------
     logMeOut() {
@@ -595,7 +602,6 @@ dropAllPins() {
            this.autoZone.run(() => {
              this.isLoggedIn = false;
            })
-
          })
          .catch(()=>{
            this.logoutError = 'Log out did not work';
