@@ -16,7 +16,12 @@ h2 {
 }
 
 .save-edited-button, .delete-route-button {
-  width: 43%;
+  margin-left: 20%;
+  width: 60%;
+}
+
+.save-edited-button {
+  margin-top: 10%; 
 }
 
 #add-pins-wrapper {
@@ -32,4 +37,8 @@ h2 {
   background-color: #FFB157;
   border: 1px solid #FFB157;
   margin-bottom: .5em 0;
+}
+
+textarea {
+  height: 5em;
 }
