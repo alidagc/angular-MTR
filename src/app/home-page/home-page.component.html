@@ -3,8 +3,12 @@
     <div *ngIf="!isLoggedin" id="landing-page">
       <h1>welcome to wanderlist!</h1>
       <small>make and share personalized <br>tours of the places you love</small>
-      <p>the dive bar in the little alley,<br>the perfect spot to catch the sunset,<br>that place where you order off menu...</p>
-      <h2>share your city,<br> tell your story</h2>
+      <br>
+      <br>
+
+      <small>the dive bar in the little alley,<br>the perfect spot to catch the sunset,<br>that place where you order off menu...</small>
+      <br><br><br>
+      <p>share your city,<br> tell your story</p>
       <br>
       <a routerLink="/signup"><button class="inverted-button"> SIGN UP </button></a>
       <a routerLink="/login"><button> LOG IN </button></a>
@@ -14,9 +18,9 @@
     <div *ngIf="isLoggedin" id="welcome-user">
       <h1> hi, {{currentUser.firstName}}</h1>
       <br><br>
-      <h2>where are we <br>off to today?</h2>
+      <p>where are we <br>off to today?</p>
       <br>
       <a routerLink="/myRoutes"><button> Browse and edit your<br> current routes </button></a>
       <br><br>
-      <a routerLink="/newroute"><button  class="inverted-button"> Create a new route with <br>your favorite spots </button></a>
+      <a routerLink="/newroute"><button  class="inverted-button createRoute"> Create a new route with <br>your favorite spots </button></a>
     </div>

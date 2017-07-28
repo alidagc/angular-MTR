@@ -25,7 +25,6 @@ export class SignupComponent implements OnInit {
   }
 
   doSignUp(){
-    alert('SUBMITTED');
     this.authService.signup(this.firstNameValue, this.lastNameValue, this.emailValue, this.passwordValue)
       .then((resultFromApi)=>{
         this.firstNameValue = "";

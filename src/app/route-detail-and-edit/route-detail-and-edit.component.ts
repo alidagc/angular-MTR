@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 import { AuthServiceService } from '../services/auth-service.service';
 import { MyTravelRoutesServiceService } from '../services/my-travel-routes-service.service';
 import { Router, ActivatedRoute } from '@angular/router';

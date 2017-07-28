@@ -3,7 +3,6 @@ h1 {
 }
 
 h2 {
-  font-size: 1em;
   margin: 0;
 }
 
@@ -13,6 +12,7 @@ h2 {
 
 .edit-button {
   width: 33%;
+  margin-top: 10%;
 }
 
 .save-edited-button, .delete-route-button {
@@ -22,7 +22,7 @@ h2 {
 #add-pins-wrapper {
   text-align: center;
   width: 100%;
-  border: 2px solid #FFB157;
+  border: 1px solid #FFB157;
   margin: 3% 0;
   font-size: .7em;
   padding: 1em 0;

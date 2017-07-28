@@ -5,20 +5,20 @@
   {{ errorMessage }}
 </p>
 <form (ngSubmit)="doSignUp()">
-  <label for="first-name-input"> First Name </label>
   <input id="first-name-input" type="text" name="firstNameValue" [(ngModel)]="firstNameValue" required/>
+  <label for="first-name-input"> First Name </label>
 
-  <label for="last-name-input"> Last Name </label>
   <input id="last-name-input" type="text" name="lastNameValue" [(ngModel)]="lastNameValue" required/>
+  <label for="last-name-input"> Last Name </label>
 
-  <label for="email-input"> Email </label>
   <input id="email-input" type="text" name="emailValue" [(ngModel)]="emailValue" required/>
+  <label for="email-input"> Email </label>
 
-  <label for="password-input"> Password </label>
   <input id="password-input" type="password" name="passwordValue" [(ngModel)]="passwordValue" required/>
-
-  <input id="radio-input" type="radio"/>
-  <label id="radio-label" for="radio-input"> Sign up to get our newsletters with great routes from around the world! </label>
+  <label for="password-input"> Password </label>
+  <br>
+  <!-- <input id="radio-input" type="radio"/>
+  <label id="radio-label" for="radio-input"> Sign up to get our newsletters with great routes from around the world! </label> -->
 
   <button class="inverted-button"> SAVE </button>
   <small>already have an account?</small>

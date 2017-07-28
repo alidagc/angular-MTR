@@ -16,7 +16,19 @@
   width: 65%;
   line-height: 1.5;
 }
+#welcome-user button {
+  width: 80%;
+  margin: 0;
+}
 
 #welcome-user {
   padding-top: 30%;
+}
+
+.inverted-button {
+  margin-top: 20%;
+}
+
+.createRoute {
+  margin-top: 7%;
 }

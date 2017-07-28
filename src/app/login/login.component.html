@@ -5,13 +5,14 @@
 </p>
 
 <form (ngSubmit)="doLogIn()">
-  <label for="login-email-input"> Email </label>
   <input id="login-email-input" type="text" name="loginEmail" [(ngModel)]="loginEmail">
+  <label for="login-email-input"> Email </label>
 <br>
-  <label for="login-password-input"> Password </label>
   <input id="login-password-input" type="password" name="loginPassword" [(ngModel)]="loginPassword">
+  <label for="login-password-input"> Password </label>
 <br>
-  <button> LOG IN </button>
+
+  <button class="movedButton"> LOG IN </button>
 </form>
 <small>don't have an account?</small>
 <a routerLink="/signup"><button class="inverted-button"> SIGN UP </button></a>

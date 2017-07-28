@@ -2,17 +2,17 @@
   <h1>add a new route</h1>
 
   <form (ngSubmit)="saveNewRoute()">
-    <label for="route-name-input"> name </label>
     <input id="route-name-input" type="text" name="newRouteName" [(ngModel)]="newRouteName">
+    <label for="route-name-input"> name </label>
     <br>
-    <label for="route-location-input"> location (city, country) </label>
     <input id="route-location-input" type="text" name="newRouteLocation" [(ngModel)]="newRouteLocation">
+    <label for="route-location-input"> location (city, country) </label>
     <br>
-    <label for="route-description-input"> description </label>
     <textarea id="route-description-input" type="text" name="newRouteDescription" [(ngModel)]="newRouteDescription"></textarea>
+    <label for="route-description-input"> description </label>
     <br>
-    <label for="route-duration-input"> duration (in hours)</label>
     <input id="route-duration-input" type="number" step=".5" name="newRouteDuration" [(ngModel)]="newRouteDuration">
+    <label for="route-duration-input"> duration (in hours)</label>
     <br>
 
     <button class="inverted-button"> next </button>

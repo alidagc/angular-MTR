@@ -9,22 +9,22 @@
     <button class="close-button" (click)="closePinForm()">x</button>
     <h1>add pin details</h1>
     <form (ngSubmit)="saveThePinAndPath()">
-      <label for="pin-name-input"> name </label>
       <input id="pin-name-input" type="text" name="newPinName" [(ngModel)]="newPinName">
+      <label for="pin-name-input"> name </label>
       <br>
-      <label for="pin-deets-input"> deets </label>
       <textarea id="pin-deets-input" type="text" name="newPinDeets" [(ngModel)]="newPinDeets"></textarea>
+      <label for="pin-deets-input"> deets </label>
       <br>
-      <label for="pin-duration-input"> duration (in hours)</label>
       <input id="pin-duration-input" type="number" step=".5" name="newPinDuration" [(ngModel)]="newPinDuration">
+      <label for="pin-duration-input"> duration (in hours)</label>
       <br>
-      <button class="inverted-button"> save pin </button>
+      <button class="inverted-button add-pin-button"> save pin </button>
     </form>
-    <button (click)="deletePath()"> Redraw Path </button>
+    <!-- <button class="add-pin-button" (click)="deletePath()"> Redraw Path </button> -->
   </div>
 
   <div *ngIf="pinWindowShowing" id="view-pin-info-modal">
-    <button class="close-button"(click)="closePinModal()"> x </button>
+    <button class="close-button" (click)="closePinModal()"> x </button>
     <h1>{{currentPin.pinName}}</h1>
     <br>
     <h2>the deets:</h2>
@@ -37,7 +37,7 @@
   </div>
 
   <div id="navigation-buttons-left">
-    <a routerLink="/"><h1>wanderlist</h1></a>
+    <a routerLink="/"><h1 class="logo">wanderlist</h1></a>
     <button  *ngIf="isLoggedIn" class="inverted-button" (click)="logMeOut()"> LOG OUT </button>
   </div>
 

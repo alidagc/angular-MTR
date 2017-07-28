@@ -5,10 +5,13 @@ h2 {
   margin: 10% 0;
 }
 button {
-  margin: 4% 0 0 20%;
+  margin: 5% 0 0 20%;
   width: 60%;
 }
 
+.inverted-button {
+  margin-top: 15%;
+}
 small {
   font-size: .7em;
   display:block;

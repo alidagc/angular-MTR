@@ -55,19 +55,26 @@ body, input, textarea {
 h1 {
 	font-family: 'Yellowtail', cursive;
 	font-size: 3em;
-	letter-spacing: 1px;
+	letter-spacing: 2.5px;
 	color: #FFB157;
+	margin-bottom: .5em;
 }
 h2 {
-	font-family: 'Comfortaa', cursive;
-	font-size: 1.7em;
+	font-size: .7em;
 	margin-bottom: 6%;
 	color: grey;
 	letter-spacing: 1px;
+	text-transform: uppercase;
+	font-weight: 600;
+}
+
+h3 {
+
 }
 
 p {
-	margin: 1em 0;
+	font-size: 1.5em;
+	margin: 0 0 1em 0;
 }
 
 button, .button {
@@ -111,14 +118,18 @@ button:focus {
 
 input, textarea {
 	border-radius: 2px;
-	border: .3px solid #FFB157;
-	background-color: rgba(252, 252, 252, 0.9);
-	width: 93%;
-	margin: 2% 0;
+	border: none;
+	border-bottom: .3px solid #CBCBCB;
+	width: 90%;
+	margin-top: 4%;
 	padding: 2% 3%;
-	font-size: .8em;
+	font-size: 1em;
 }
 
+input:focus, textarea:focus {
+	outline: none;
+	border-bottom: 2px solid #FFB157;
+}
 .error {
   padding: 15px;
   border: 2px solid crimson;

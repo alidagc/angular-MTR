@@ -7,6 +7,9 @@ button {
   width: 60%;
 }
 
+.inverted-button {
+  margin-top: 30%;
+}
 textarea {
   height: 5em;
 }
